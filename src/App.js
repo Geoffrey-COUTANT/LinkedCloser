@@ -4,8 +4,10 @@ import QuizOnboarding from "./components/QuizOnboarding/QuizOnboarding";
 
 function App() {
   return (
-      <div className='flex justify-center items-center'>
+      <div className='flex justify-center items-center h-screen w-screen '>
+          <div className='rounded-lg'>
             <QuizOnboarding />
+          </div>
       </div>
   );
 }
