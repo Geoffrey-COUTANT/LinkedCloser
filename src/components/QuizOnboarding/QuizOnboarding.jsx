@@ -1,14 +1,54 @@
-import React, { useState } from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 import Chronometre from "../Chronometre/Chronometre";
 
 function QuizOnboardingStep1({onNext, onPrev}) {
+    const buttonRef = useRef(null);
+
+    useEffect(() => {
+        const button = buttonRef.current;
+
+        const pulseAnimation = keyframes => {
+            const animationName = `pulse-${Math.random().toString(36).substring(7)}`;
+            const styleSheet = document.styleSheets[0];
+            const keyframesRule = `@keyframes ${animationName} {
+        ${keyframes}
+      }`;
+
+            styleSheet.insertRule(keyframesRule, styleSheet.cssRules.length);
+            return animationName;
+        };
+
+        const animationName = pulseAnimation(`
+      0% {
+        transform: scale(1);
+      }
+      50% {
+        transform: scale(1.1);
+      }
+      100% {
+        transform: scale(1);
+      }
+    `);
+        button.style.animation = `${animationName} 2s infinite`;
+
+        return () => {
+            const styleSheet = document.styleSheets[0];
+            const rules = styleSheet.cssRules;
+            for (let i = 0; i < rules.length; i++) {
+                if (rules[i].name === animationName) {
+                    styleSheet.deleteRule(i);
+                    break;
+                }
+            }
+        };
+    }, []);
     return (
         <div className='flex justify-center items-center'>
             <div className='bg-gray-400/30 px-80 py-8 rounded-lg border-4 border-gray-500/25 backdrop-blur-sm '>
                 <div className='flex flex-col justify-center items-center mt-10'>
                     <h1 className='text-4xl text-white font-bold'>Démarrer l'Appel !</h1>
                     <div className='my-48 mx-96 rounded-full'>
-                        <div className='rounded-full overflow-hidden'>
+                        <div ref={buttonRef} className='rounded-full overflow-hidden'>
                             <button onClick={onNext} className='bg-gray-300/50 hover:bg-gray-400 rounded-full'>
                                 <img className='m-20' src={require('../img/logo-appel.png')} alt="logo"/>
                             </button>
@@ -63,7 +103,7 @@ function QuizOnboardingStep3({onNext, onPrev}) {
                         </div>
                         <div className='mt-10 mb-8 grid grid-cols-6 gap-2'>
                             <div className='flex flex-col col-start-1 col-end-3'>
-                                <div className='flex items-center bg-gray-600 rounded-full w-80'>
+                                <div className='flex items-center bg-blue-950/10 text-white backdrop-blur-md rounded-full w-80'>
                                     <img className='h-12 w-20 my-5 ml-1' src={require('../img/intonation-emoji/stars.png')}
                                          alt="logo"/>Prenez une intonation "enthousiaste"
                                 </div>
