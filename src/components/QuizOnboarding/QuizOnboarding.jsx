@@ -29,7 +29,7 @@ function QuizOnboardingStep2({onNext, onPrev}) {
                         <h1 className='text-5xl mx-3.5 text-white font-bold'>Quel est le prénom de votre prospect ?</h1>
                         <input
                             type="text"
-                            className="text-white border-white border-b-2 w-full bg-transparent outline-none text-4xl mt-36"
+                            className="text-white border-white border-b-2 w-full bg-transparent outline-none text-4xl mt-36 ::placeholder pl-2 pb-1"
                             placeholder="Réponse..."
                         />
                         <button onClick={onNext}
