@@ -1,5 +1,6 @@
 import React, {useEffect, useRef, useState} from 'react';
 import Chronometre from "../Chronometre/Chronometre";
+import PanicButton from "../PannicButton/PanicButton";
 
 function QuizOnboardingStep1({onNext, onPrev}) {
     const buttonRef = useRef(null);
@@ -44,9 +45,9 @@ function QuizOnboardingStep1({onNext, onPrev}) {
     }, []);
     return (
         <div className='flex justify-center items-center'>
-            <div className='bg-gray-400/30 px-80 py-8 rounded-lg border-4 border-gray-500/25 backdrop-blur-sm '>
+            <div className='bg-gray-400/30 px-80 py-8 rounded-3xl border-4 border-gray-500/25 backdrop-blur-sm '>
                 <div className='flex flex-col justify-center items-center mt-10'>
-                    <h1 className='text-4xl text-white font-bold'>Démarrer l'Appel !</h1>
+                    <h1 className='text-5xl text-white font-bold'>Démarrer l'Appel !</h1>
                     <div className='my-48 mx-96 rounded-full'>
                         <div ref={buttonRef} className='rounded-full overflow-hidden'>
                             <button onClick={onNext} className='bg-gray-300/50 hover:bg-gray-400 rounded-full'>
@@ -63,7 +64,7 @@ function QuizOnboardingStep1({onNext, onPrev}) {
 function QuizOnboardingStep2({onNext, onPrev}) {
     return (
         <div className='flex justify-center items-center'>
-            <div className='bg-gray-400/30 rounded-lg border-4 border-gray-500/25 backdrop-blur-sm py-24'>
+            <div className='bg-gray-400/30 rounded-3xl border-4 border-gray-500/25 backdrop-blur-sm py-24'>
                 <div className='mb-2.5'>
                     <div className='flex flex-col justify-center items-center mt-28 mx-96'>
                         <h1 className='text-5xl mx-3.5 text-white font-bold'>Quel est le prénom de votre prospect ?</h1>
@@ -73,7 +74,7 @@ function QuizOnboardingStep2({onNext, onPrev}) {
                             placeholder="Réponse..."
                         />
                         <button onClick={onNext}
-                                className='flex bg-gray-400 hover:bg-gray-500 text-white font-bold py-2 px-4 my-32 rounded-full'>DÉMARRER
+                                className='flex bg-gray-400/80 hover:bg-gray-500 text-white font-bold py-4 px-7 my-32 rounded-full text-lg'>DÉMARRER
                             L'ÉCHANGE<img className='h-5 w-5 ml-3 mt-0.5' src={require('../img/play.png')} alt="logo"/>
                         </button>
                     </div>
@@ -84,43 +85,108 @@ function QuizOnboardingStep2({onNext, onPrev}) {
 }
 
 function QuizOnboardingStep3({onNext, onPrev}) {
+    const [modalVisible, setModalVisible] = useState(false);
+
+    const openModal = () => {
+        setModalVisible(true);
+    };
+
+    const closeModal = () => {
+        setModalVisible(false);
+    };
     return (
-        <div className='flex flex-col'>
+        <div className='flex justify-items-center mr-24'>
+            <div className='flex justify-center mx-16'>
+                <PanicButton openModal={openModal}/>
+            </div>
             <div className='flex justify-items-center'>
-                <div className='bg-gray-400/30 rounded-lg border-4 border-gray-500/25 backdrop-blur-sm pt-14'>
+                <div className='bg-gray-400/30 rounded-3xl border-4 border-gray-500/25 backdrop-blur-sm pt-14'>
                     <div className='mb-2.5 mx-10'>
-                        <div className='flex flex-grow '>
+                        <div className='flex flex-grow'>
                             <h1 className='text-4xl ml-3.5 mr-96 text-white font-bold'>PARTIE 1 : CRÉER LE CONTACT</h1>
-                            <Chronometre />
+                            <Chronometre/>
                         </div>
-                        <div className='flex flex-col bg-gray-500/20 py-52 mt-16 rounded-lg items-center'>
+                        <div className='flex flex-col bg-gray-800/50 py-52 mt-16 rounded-2xl items-center'>
                             <div className='text-white'>
                                 <div className='mx-3.5'>
                                     <h1 className='text-3xl font-bold'>Bonjour John ! Comment allez-vous ?</h1>
                                     <h2 className='text-2xl mt-7'>D'où est-ce que vous m'appelez ?</h2>
+                                    {modalVisible && (
+                                        <div className='fixed inset-0 flex items-center justify-center'>
+                                            <div className='bg-gray-400/70 mx-14 rounded-3xl border-4 border-gray-500/25'>
+                                                <div className='mb-2.5 mx-10'>
+                                                    <div className='flex flex-grow space-x-5'>
+                                                        <div className='flex flex-grow space-x-5'>
+                                                            <div className='flex flex-col bg-gray-800/50 mt-16 rounded-2xl items-center'>
+                                                                <div className='text-white '>
+                                                                    <div className='mx-3.5'>
+                                                                        <h1 className='text-xl'>LE PROSPECT VOUS DONNE UN CRÈNEAU QUI VOUS CONVIENT ? RÉPONDEZ :</h1>
+                                                                        <h2 className='text-2xl mt-7 font-bold'>Pas de soucis ! Je n’ai besoin que de X minute !</h2>
+                                                                        <div className='flex flex-col col-start-1 col-end-3'>
+                                                                            <div className='flex items-center bg-blue-950/20 text-white rounded-full w-64'>
+                                                                                <img className='h-8 w-14 my-5 ml-1'
+                                                                                     src={require('../img/intonation-emoji/stars.png')}
+                                                                                     alt="logo"/>
+                                                                                Prenez une intonation "enthousiaste"
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div className='flex flex-grow space-x-5'>
+                                                            <div className='flex flex-col bg-gray-800/50 mt-16 rounded-2xl items-center'>
+                                                                <div className='text-white '>
+                                                                    <div className='mx-3.5'>
+                                                                        <h1 className='text-xl'>LE PROSPECT VOUS DONNE UN CRÈNEAU QUI VOUS CONVIENT ? RÉPONDEZ :</h1>
+                                                                        <h2 className='text-2xl mt-7 font-bold'>Pas de soucis ! Je n’ai besoin que de X minute !</h2>
+                                                                        <div className='flex flex-col col-start-1 col-end-3'>
+                                                                            <div className='flex items-center bg-blue-950/20 text-white rounded-full w-64'>
+                                                                                <img className='h-8 w-14 my-5 ml-1'
+                                                                                     src={require('../img/intonation-emoji/stars.png')}
+                                                                                     alt="logo"/>
+                                                                                Prenez une intonation "enthousiaste"
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div className='mt-10 mb-8 grid grid-cols-6 gap-2'>
+                                                        <div className='col-end-11 col-span-2'>
+                                                            <button onClick={closeModal}
+                                                                    className='flex bg-gray-400/80 hover:bg-gray-500 text-white font-bold py-4 px-7 rounded-full text-lg'>FERMER LE “CADRE” ET REVENIR AU SCRIPT
+                                                                <img className='h-5 w-5 ml-3 mt-1'
+                                                                     src={require('../img/croix.png')}
+                                                                     alt="logo"/>
+                                                            </button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    )}
                                 </div>
                             </div>
                         </div>
                         <div className='mt-10 mb-8 grid grid-cols-6 gap-2'>
                             <div className='flex flex-col col-start-1 col-end-3'>
-                                <div className='flex items-center bg-blue-950/10 text-white backdrop-blur-md rounded-full w-80'>
-                                    <img className='h-12 w-20 my-5 ml-1' src={require('../img/intonation-emoji/stars.png')}
+                                <div className='flex items-center bg-blue-950/20 text-white rounded-full w-80'>
+                                    <img className='h-12 w-20 my-5 ml-1'
+                                         src={require('../img/intonation-emoji/stars.png')}
                                          alt="logo"/>Prenez une intonation "enthousiaste"
                                 </div>
                             </div>
                             <div className='col-end-11 col-span-2'>
                                 <button onClick={onPrev}
-                                        className='flex bg-gray-400 hover:bg-gray-500 text-white font-bold py-2 px-4 rounded-full'>
-                                    <img className='h-10 w-10 my-5 mx-3' src={require('../img/play.png')} alt="logo"/>
+                                        className='flex bg-gray-400/80 hover:bg-gray-500 text-white font-bold py-2 px-4 rounded-full'>
+                                    <img className='h-10 w-10 my-5 mr-3 ml-4' src={require('../img/play.png')}
+                                         alt="logo"/>
                                 </button>
                             </div>
                         </div>
                     </div>
-                </div>
-            </div>
-            <div>
-                <div>
-
                 </div>
             </div>
         </div>
@@ -139,7 +205,7 @@ function QuizOnboarding() {
     }
 
     return (
-        <div className='flex justify-center items-center'>
+        <div className='flex'>
             {step === 1 && <QuizOnboardingStep1 onNext={handleNext} onPrev={handlePrev}/>}
             {step === 2 && <QuizOnboardingStep2 onNext={handleNext} onPrev={handlePrev}/>}
             {step === 3 && <QuizOnboardingStep3 onNext={handleNext} onPrev={handlePrev}/>}
