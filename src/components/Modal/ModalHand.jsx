@@ -10,10 +10,10 @@ function ModalHand({ closeModal }) {
                             <div className='flex flex-col bg-gray-800/50 mt-7 ml-8 rounded-2xl items-center'>
                                 <div className='text-white '>
                                     <div className='mt-7 ml-9 mr-8'>
-                                        <h1 className='text-xl'>LE PROSPECT VOUS DONNE UN CRÈNEAU QUI VOUS CONVIENT ?
+                                        <h1 className='text-xl'>LE PROSPECT VOUS DONNE UN COUP DE MAIN QUI VOUS CONVIENT ?
                                             RÉPONDEZ :</h1>
                                         <h2 className='text-2xl mt-7 font-bold'>Pas de soucis ! Je n’ai besoin que de X
-                                            minute !</h2>
+                                            coups de main !</h2>
                                         <div className='flex flex-col col-start-1 col-end-3'>
                                             <div
                                                 className='flex items-center bg-blue-950/20 text-white rounded-full mb-5 mt-16 w-64'>

@@ -18,7 +18,7 @@ function Chronometre() {
     };
 
     return (
-        <div className='text-3xl bg-blue-950/20 text-white w-44 px-16 py-2 rounded-xl ml-96'>
+        <div className='text-3xl bg-blue-950/20 text-white w-44 px-16 py-2 rounded-xl ml-80'>
             <h1 className='flex justify-center'>{formatTime(time)}</h1>
         </div>
     );

@@ -1,6 +1,6 @@
 import React from "react";
 
-function ModalClock({ closeModal }) {
+function ModalDollar({ closeModal }) {
     return (
         <div className='fixed inset-0 flex items-center justify-center z-50'>
             <div className='bg-gray-500 mx-14 rounded-2xl border-4 border-gray-500/25'>
@@ -10,13 +10,16 @@ function ModalClock({ closeModal }) {
                             <div className='flex flex-col bg-gray-800/50 mt-7 ml-8 rounded-2xl items-center'>
                                 <div className='text-white '>
                                     <div className='mt-7 ml-9 mr-8'>
-                                        <h1 className='text-xl'>LE PROSPECT VOUS DONNE UN CRÈNEAU QUI VOUS CONVIENT ?
-                                            RÉPONDEZ :</h1>
-                                        <h2 className='text-2xl mt-7 font-bold'>Pas de soucis ! Je n’ai besoin que de X
-                                            minute !</h2>
+                                        <h1 className='text-lg'>LE PROSPECT VOUS DEMANDE DIRECTEMENT
+                                            VOTRE PRIX ? RÉPONDEZ :</h1>
+                                        <h2 className='text-xl mt-7 font-bold'>Eh bien ... pour l’instant je ne sais pas
+                                            encore ... !</h2>
+                                        <h2 className='text-xl mt-4 font-bold'>Je dois encore vous poser des
+                                            questions pour comprendre quelle
+                                            offre est le plus appropriée pour vous</h2>
                                         <div className='flex flex-col col-start-1 col-end-3'>
                                             <div
-                                                className='flex items-center bg-blue-950/20 text-white rounded-full mb-5 mt-16 w-64'>
+                                                className='flex items-center bg-blue-950/20 text-white rounded-full mb-5 mt-7 w-64'>
                                                 <img className='h-8 w-14 my-5 ml-1'
                                                      src={require('../img/intonation-emoji/stars.png')}
                                                      alt="logo"/>
@@ -31,13 +34,16 @@ function ModalClock({ closeModal }) {
                             <div className='flex flex-col bg-gray-800/50 mt-7 mr-8 rounded-2xl items-center'>
                                 <div className='text-white '>
                                     <div className='mt-7 ml-9 mr-8'>
-                                        <h1 className='text-xl'>LE PROSPECT VOUS DONNE UN CRÈNEAU QUI VOUS CONVIENT ?
-                                            RÉPONDEZ :</h1>
-                                        <h2 className='text-2xl mt-7 font-bold'>Pas de soucis ! Je n’ai besoin que de X
-                                            minute !</h2>
+                                        <h1 className='text-lg'>LE PROSPECT VOUS DEMANDE POURQUOI IL
+                                            DEVRAIT ACHETER VOTRE PRESTATION ? RÉPONDEZ :</h1>
+                                        <h2 className='text-xl mt-7 font-bold'>Eh bien ... pour l’instant he ne sais pas
+                                            encore ... !</h2>
+                                        <h2 className='text-xl mt-4 font-bold'>... je dois encore vous poser des
+                                            questions pour être sur que mon
+                                            service peut vous aider !</h2>
                                         <div className='flex flex-col col-start-1 col-end-3'>
                                             <div
-                                                className='flex items-center bg-blue-950/20 text-white rounded-full mb-5 mt-16 w-64'>
+                                                className='flex items-center bg-blue-950/20 text-white rounded-full mb-5 mt-7 w-64'>
                                                 <img className='h-8 w-14 my-5 ml-1'
                                                      src={require('../img/intonation-emoji/stars.png')}
                                                      alt="logo"/>
@@ -66,4 +72,4 @@ function ModalClock({ closeModal }) {
     )
 }
 
-export default ModalClock;
+export default ModalDollar;
