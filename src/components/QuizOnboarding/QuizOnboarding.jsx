@@ -119,7 +119,7 @@ function QuizOnboardingStep3({onNext, onPrev}) {
     return (
         <div className='flex justify-items-center mr-24 z-10'>
             <div className='flex justify-center mx-16 z-50'>
-                <PanicButton openModal={openModal} buttonActive={buttonActive}/>
+                <PanicButton openModal={openModal} buttonActive={buttonActive}/>  {/* faire en sorte que le background ce noirssice, faire en sorte que la pop-up face moins attaché a la page de derrière */}
             </div>
             <div className='flex justify-items-center'>
                 <div className='bg-gray-400/30 rounded-3xl border-4 border-gray-500/25 backdrop-blur-sm pt-14'>
