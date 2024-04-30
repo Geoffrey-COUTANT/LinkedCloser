@@ -117,16 +117,16 @@ function QuizOnboardingStep3({onNext, onPrev}) {
         }
     };
     return (
-        <div className='flex justify-items-center mr-24 z-10'>
+        <div className={`flex justify-items-center mr-24 z-10 ${modalVisible ? 'fixed top-0 left-0 w-full h-full bg-black/80 flex items-center justify-center pr-24' : ''}`}>
             <div className='flex justify-center mx-16 z-50'>
-                <PanicButton openModal={openModal} buttonActive={buttonActive}/>  {/* faire en sorte que le background ce noirssice, faire en sorte que la pop-up face moins attaché a la page de derrière */}
+                <PanicButton openModal={openModal} buttonActive={buttonActive}/>  {/*faire en sorte que la pop-up face moins attaché a la page de derrière */}
             </div>
             <div className='flex justify-items-center'>
                 <div className='bg-gray-400/30 rounded-3xl border-4 border-gray-500/25 backdrop-blur-sm pt-14'>
                     <div className='mb-2.5 mx-10'>
                         <div className='flex flex-grow'>
                             <h1 className='text-4xl ml-3.5 mr-96 text-white font-bold'>PARTIE 1 : CRÉER LE CONTACT</h1>
-                            <Chronometre />
+                            {modalVisible ? null : <Chronometre />}
                         </div>
                         <div className='flex flex-col bg-gray-800/50 py-52 mt-16 rounded-2xl items-center'>
                             <div className='text-white'>
@@ -190,7 +190,7 @@ function QuizOnboardingStep4({onNext, onPrev}) {
         }
     };
     return (
-        <div className='flex justify-items-center mr-24 z-10'>
+        <div className={`flex justify-items-center mr-24 z-10 ${modalVisible ? 'fixed top-0 left-0 w-full h-full bg-black/80 flex items-center justify-center pr-24' : ''}`}>
             <div className='flex justify-center mx-16 z-50'>
                 <PanicButton openModal={openModal} buttonActive={buttonActive}/>
             </div>

@@ -3,7 +3,7 @@ import React from "react";
 function ModalClock({ closeModal }) {
     return (
         <div className='fixed inset-0 flex items-center rounded-3xl justify-center bg-black/80 z-50'>
-            <div className='bg-gray-500 mx-14 rounded-2xl border-4 border-gray-500/25'>
+            <div className='bg-gray-500 mx-14 rounded-2xl relative border-4 border-gray-400'>
                 <div className='mb-2.5 mx-16'>
                     <div className='flex flex-grow space-x-28'>
                         <div className='flex flex-grow'>
