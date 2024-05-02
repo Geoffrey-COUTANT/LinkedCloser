@@ -124,9 +124,8 @@ function QuizOnboardingStep3({onNext, onPrev}) {
             <div className='flex justify-items-center'>
                 <div className='bg-gray-400/30 rounded-3xl border-4 border-gray-500/25 backdrop-blur-sm pt-14'>
                     <div className='mb-2.5 mx-10'>
-                        <div className='flex flex-grow'>
+                        <div className='flex flex-grow mr-96'>
                             <h1 className='text-4xl ml-3.5 mr-96 text-white font-bold'>PARTIE 1 : CRÉER LE CONTACT</h1>
-                            {modalVisible ? null : <Chronometre />}
                         </div>
                         <div className='flex flex-col bg-gray-800/50 py-52 mt-16 rounded-2xl items-center'>
                             <div className='text-white'>
@@ -160,7 +159,7 @@ function QuizOnboardingStep3({onNext, onPrev}) {
     )
 }
 
-function QuizOnboardingStep4({onNext, onPrev}) {
+function QuizOnboardingStep4({handleHabitualClick, onNext, onPrev}) {
     const [modalVisible, setModalVisible] = useState(false);
     const [buttonActive, setButtonActive] = useState("");
     const [modalType, setModalType] = useState("");
@@ -197,9 +196,8 @@ function QuizOnboardingStep4({onNext, onPrev}) {
             <div className='flex justify-items-center'>
                 <div className='bg-gray-400/30 rounded-3xl border-4 border-gray-500/25 backdrop-blur-sm pt-14'>
                     <div className='mb-2.5 mx-10'>
-                        <div className='flex flex-grow'>
+                        <div className='flex flex-grow mr-96'>
                             <h1 className='text-4xl ml-2 text-white font-bold'>PARTIE 2 : PRENDRE LE CONTRÔLE DE L’APPEL (1 / 2)</h1>
-                            <Chronometre />
                         </div>
                         <div className='flex flex-col bg-gray-800/50 py-44 mt-16 rounded-2xl items-center'>
                             <div className='text-white'>
@@ -214,7 +212,7 @@ function QuizOnboardingStep4({onNext, onPrev}) {
                                                              src={require('../img/play.png')}
                                                              alt="logo"/>
                                         </button>
-                                        <button onClick={onNext}
+                                        <button onClick={handleHabitualClick}
                                                 className='flex bg-gray-400/80 hover:bg-gray-500 text-white font-bold py-4 px-7 rounded-full text-lg'>IL A DÉJÀ L’HABITUDE
                                             <img className='h-5 w-5 ml-3 mt-0.5'
                                                              src={require('../img/play.png')}
@@ -248,8 +246,89 @@ function QuizOnboardingStep4({onNext, onPrev}) {
     )
 }
 
+function QuizOnboardingStep5({onNext, onPrev, updateChronoBackground}) {
+    const [modalVisible, setModalVisible] = useState(false);
+    const [buttonActive, setButtonActive] = useState("");
+    const [modalType, setModalType] = useState("");
+
+    const openModal = (type) => {
+        setModalVisible(true);
+        setButtonActive(type);
+        setModalType(type);
+        updateChronoBackground("#FFFFFF", "#000000");
+    };
+
+    const closeModal = () => {
+        setModalVisible(false);
+        setButtonActive("");
+        setModalType("");
+        updateChronoBackground("#17255433");
+    };
+
+    const renderModal = () => {
+        switch (modalType) {
+            case "Clock":
+                return <ModalClock closeModal={closeModal}/>;
+            case "Dollar":
+                return <ModalDollar closeModal={closeModal}/>;
+            case "Hand":
+                return <ModalHand closeModal={closeModal}/>;
+            default:
+                return null;
+        }
+    };
+    return (
+        <div className={`flex justify-items-center mr-24 z-10 ${modalVisible ? 'fixed top-0 left-0 w-full h-full bg-black/80 flex items-center justify-center pr-24' : ''}`}>
+            <div className='flex justify-center mx-16 z-50'>
+                <PanicButton openModal={openModal} buttonActive={buttonActive}/>
+            </div>
+            <div className='flex justify-items-center'>
+                <div className='bg-gray-400/30 rounded-3xl border-4 border-gray-500/25 backdrop-blur-sm pt-14'>
+                    <div className='mb-2.5 mx-10'>
+                        <div className='flex flex-grow'>
+                            <h1 className='text-4xl ml-2 text-white font-bold'>PARTIE 2 : PRENDRE LE CONTRÔLE DE L’APPEL (2 / 2)</h1>
+                        </div>
+                        <div className='flex flex-col bg-gray-800/50 mt-16 rounded-2xl items-center'>
+                            <div className='text-white'>
+                                <div className='mx-3.5 max-w-6xl'>
+                                    <h1 className='text-2xl font-bold  mt-14'>Et bien, écoutez je vais vous expliquez
+                                        concrètement comment cet appel va se dérouler ... </h1>
+                                    <h1 className='text-2xl font-bold '>Dans un 1er temps je vais vous poser quelques
+                                        questions afin de comprendre ce que vous faites et ... voir si je peux vous aider,</h1>
+                                    <h1 className='text-2xl font-bold '>Et bien, écoutez je vais vous expliquez
+                                        concrètement comment cet appel va se dérouler ... </h1>
+                                    <h1 className='text-2xl font-bold mb-14'>Et bien, écoutez je vais vous expliquez
+                                        concrètement comment cet appel va se dérouler ... </h1>
+                                    {modalVisible && renderModal()}
+                                </div>
+                            </div>
+                        </div>
+                        <div className='mt-10 mb-8 grid grid-cols-6 gap-2'>
+                            <div className='flex flex-col col-start-1 col-end-3'>
+                                <div className='flex items-center bg-blue-950/20 text-white rounded-full w-80'>
+                                    <img className='h-12 w-20 my-5 ml-1'
+                                         src={require('../img/intonation-emoji/stars.png')}
+                                         alt="logo"/>Prenez une intonation "enthousiaste"
+                                </div>
+                            </div>
+                            <div className='col-end-11 col-span-2'>
+                                <button onClick={onPrev}
+                                        className='flex bg-gray-400/80 hover:bg-gray-500 text-white font-bold py-2 px-4 rounded-full'>
+                                    <img className='h-10 w-10 my-5 mr-3 ml-4' src={require('../img/play.png')}
+                                         alt="logo"/>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    )
+}
+
 function QuizOnboarding() {
     const [step, setStep] = useState(1);
+    const [chronoBackground, setChronoBackground] = useState("#17255433");
 
     const handleNext = () => {
         setStep(step + 1);
@@ -259,12 +338,22 @@ function QuizOnboarding() {
         setStep(step - 1);
     }
 
+    const handleHabitualClick = () => {
+        setStep(step + 2);
+    };
+
+    const updateChronoBackground = (background) => {
+        setChronoBackground(background);
+    };
+
     return (
         <div className='flex'>
+            {step >= 3 ? <Chronometre chronoBackground={chronoBackground}/> : null}
             {step === 1 && <QuizOnboardingStep1 onNext={handleNext} onPrev={handlePrev}/>}
             {step === 2 && <QuizOnboardingStep2 onNext={handleNext} onPrev={handlePrev}/>}
             {step === 3 && <QuizOnboardingStep3 onNext={handleNext} onPrev={handlePrev}/>}
-            {step === 4 && <QuizOnboardingStep4 onNext={handleNext} onPrev={handlePrev}/>}
+            {step === 4 && <QuizOnboardingStep4 onNext={handleNext} onPrev={handleHabitualClick}/>}
+            {step === 5 && <QuizOnboardingStep5 onNext={handleNext} onPrev={handlePrev} updateChronoBackground={updateChronoBackground}/>}
         </div>
     )
 }

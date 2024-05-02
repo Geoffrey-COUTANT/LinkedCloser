@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 
-function Chronometre() {
+function Chronometre({ chronoBackground }) {
     const [time, setTime] = useState(0);
 
     useEffect(() => {
@@ -18,8 +18,8 @@ function Chronometre() {
     };
 
     return (
-        <div className='text-3xl bg-blue-950/20 text-white w-44 px-16 py-2 rounded-xl ml-80'>
-            <h1 className='flex justify-center'>{formatTime(time)}</h1>
+        <div style={{ backgroundColor: chronoBackground }} className='fixed top-0 right-0 bg-blue-950/20 text-white h-14 w-44 mt-32 px-14 mr-56 py-2 rounded-xl z-50'>
+            <h1 className='text-3xl'>{formatTime(time)}</h1>
         </div>
     );
 }
