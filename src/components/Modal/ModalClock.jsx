@@ -2,12 +2,12 @@ import React from "react";
 
 function ModalClock({ closeModal }) {
     return (
-        <div className='fixed inset-0 flex items-center rounded-3xl justify-center bg-black/80 z-50'>
-            <div className='bg-gray-500 mx-14 rounded-2xl relative border-4 border-gray-400'>
+        <div className='fixed inset-0 flex items-center rounded-3xl justify-center bg-black/70 z-50'>
+            <div className='bg-gray-500 mx-14 rounded-2xl relative border-4 border-gray-600/50'>
                 <div className='mb-2.5 mx-16'>
                     <div className='flex flex-grow space-x-28'>
                         <div className='flex flex-grow'>
-                            <div className='flex flex-col bg-gray-800/50 mt-7 ml-8 rounded-2xl items-center'>
+                            <div className='flex flex-col bg-gray-800/30 mt-7 ml-8 rounded-2xl items-center'>
                                 <div className='text-white '>
                                     <div className='mt-7 ml-9 mx-16'>
                                         <h1 className='text-lg'>LE PROSPECT VOUS DONNE UN CRÈNEAU QUI VOUS CONVIENT ?
@@ -28,7 +28,7 @@ function ModalClock({ closeModal }) {
                             </div>
                         </div>
                         <div className='flex flex-grow space-x-5'>
-                            <div className='flex flex-col bg-gray-800/50 mt-7 mr-8 rounded-2xl items-center'>
+                            <div className='flex flex-col bg-gray-800/30 mt-7 mr-8 rounded-2xl items-center'>
                                 <div className='text-white '>
                                     <div className='mt-7 ml-9 mr-8'>
                                         <h1 className='text-lg'>LE PROSPECT VOUS DONNE UN CRÈNEAU
