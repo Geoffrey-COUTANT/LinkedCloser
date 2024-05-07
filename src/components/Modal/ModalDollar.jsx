@@ -19,11 +19,11 @@ function ModalDollar({ closeModal }) {
                                             offre est le plus appropriée pour vous</h2>
                                         <div className='flex flex-col col-start-1 col-end-3'>
                                             <div
-                                                className='flex items-center bg-blue-950/20 text-white rounded-full mb-5 mt-7 w-64'>
+                                                className='flex items-center bg-blue-950/20 text-white rounded-full mb-5 mt-14 w-64'>
                                                 <img className='h-8 w-14 my-5 ml-1'
-                                                     src={require('../img/intonation-emoji/stars.png')}
+                                                     src={require('../img/intonation-emoji/obvious.png')}
                                                      alt="logo"/>
-                                                Prenez une intonation "enthousiaste"
+                                                Prenez une intonation "c'est une evidence"
                                             </div>
                                         </div>
                                     </div>
@@ -45,9 +45,9 @@ function ModalDollar({ closeModal }) {
                                             <div
                                                 className='flex items-center bg-blue-950/20 text-white rounded-full mb-5 mt-7 w-64'>
                                                 <img className='h-8 w-14 my-5 ml-1'
-                                                     src={require('../img/intonation-emoji/stars.png')}
+                                                     src={require('../img/intonation-emoji/obvious.png')}
                                                      alt="logo"/>
-                                                Prenez une intonation "enthousiaste"
+                                                Prenez une intonation "c'est une evidence"
                                             </div>
                                         </div>
                                     </div>

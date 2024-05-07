@@ -16,7 +16,7 @@ function ModalClock({ closeModal }) {
                                             minute !</h2>
                                         <div className='flex flex-col col-start-1 col-end-3'>
                                             <div
-                                                className='flex items-center bg-blue-950/20 text-white rounded-full mb-5 mt-16 w-64'>
+                                                className='flex items-center bg-blue-950/20 text-white rounded-full mb-5 mt-28 w-64'>
                                                 <img className='h-8 w-14 my-5 ml-1'
                                                      src={require('../img/intonation-emoji/stars.png')}
                                                      alt="logo"/>
