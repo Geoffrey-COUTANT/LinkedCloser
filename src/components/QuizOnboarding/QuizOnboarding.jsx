@@ -1,6 +1,6 @@
 import React, {useEffect, useRef, useState} from 'react';
 import Chronometre from "../Chronometre/Chronometre";
-import PanicButton from "../PannicButton/PanicButton";
+import PanicButton from "../PanicButton/PanicButton";
 import ModalClock from "../Modal/ModalClock";
 import ModalDollar from "../Modal/ModalDollar";
 import ModalHand from "../Modal/ModalHand";
@@ -92,10 +92,20 @@ function QuizOnboardingStep2({onNext, onPrev}) {
     )
 }
 
-function QuizOnboardingStep3({onNext, updateChronoBackground, updateChronoTextColor, onPrev}) {
+function QuizOnboardingStep3({onNext, onPrev, time, formatTime}) {
     const [modalVisible, setModalVisible] = useState(false);
     const [buttonActive, setButtonActive] = useState("");
     const [modalType, setModalType] = useState("");
+    const [chronoBackground, setChronoBackground] = useState("");
+    const [chronoTextColor, setChronoTextColor] = useState("");
+
+    const updateChronoBackground = (background) => {
+        setChronoBackground(background);
+    };
+
+    const updateChronoTextColor = (textColor) => {
+        setChronoTextColor(textColor);
+    };
 
     const openModal = (type) => {
         setModalVisible(true);
@@ -128,13 +138,14 @@ function QuizOnboardingStep3({onNext, updateChronoBackground, updateChronoTextCo
     return (
         <div className={`flex justify-items-center mr-24 z-10 ${modalVisible ? 'fixed top-0 left-0 w-full h-full bg-black/80 flex items-center justify-center pr-24' : ''}`}>
             <div className='flex justify-center mx-16 z-50'>
-                <PanicButton openModal={openModal} buttonActive={buttonActive}/>  {/*faire en sorte que la pop-up face moins attaché a la page de derrière */}
+                <PanicButton openModal={openModal} buttonActive={buttonActive}/>
             </div>
             <div className='flex justify-items-center'>
                 <div className={`bg-gray-400/30 rounded-3xl ${modalVisible ? '' : 'border-4'} border-gray-500/25 backdrop-blur-sm pt-14`}>
                     <div className='mb-2.5 mx-10'>
                         <div className='flex flex-grow mr-96'>
                             <h1 className='text-4xl ml-3.5 mr-96 text-white font-bold'>PARTIE 1 : CRÉER LE CONTACT</h1>
+                            <Chronometre chronoBackground={chronoBackground} chronoTextColor={chronoTextColor} formatTime={formatTime} time={time}/>
                         </div>
                         <div className='flex flex-col bg-gray-800/50 py-52 mt-16 rounded-2xl items-center'>
                             <div className='text-white'>
@@ -162,10 +173,20 @@ function QuizOnboardingStep3({onNext, updateChronoBackground, updateChronoTextCo
     )
 }
 
-function QuizOnboardingStep4({handleHabitualClick, updateChronoBackground, updateChronoTextColor ,onNext, onPrev}) {
+function QuizOnboardingStep4({handleHabitualClick, time, formatTime, onNext, onPrev}) {
     const [modalVisible, setModalVisible] = useState(false);
     const [buttonActive, setButtonActive] = useState("");
     const [modalType, setModalType] = useState("");
+    const [chronoBackground, setChronoBackground] = useState("");
+    const [chronoTextColor, setChronoTextColor] = useState("");
+
+    const updateChronoBackground = (background) => {
+        setChronoBackground(background);
+    };
+
+    const updateChronoTextColor = (textColor) => {
+        setChronoTextColor(textColor);
+    };
 
     const openModal = (type) => {
         setModalVisible(true);
@@ -205,6 +226,7 @@ function QuizOnboardingStep4({handleHabitualClick, updateChronoBackground, updat
                     <div className='mb-2.5 mx-10'>
                         <div className='flex flex-grow mr-96'>
                             <h1 className='text-4xl ml-2 text-white font-bold'>PARTIE 2 : PRENDRE LE CONTRÔLE DE L’APPEL (1 / 2)</h1>
+                            <Chronometre chronoBackground={chronoBackground} chronoTextColor={chronoTextColor} formatTime={formatTime} time={time}/>
                         </div>
                         <div className='flex flex-col bg-gray-800/50 py-44 mt-16 rounded-2xl items-center'>
                             <div className='text-white'>
@@ -256,10 +278,20 @@ function QuizOnboardingStep4({handleHabitualClick, updateChronoBackground, updat
     )
 }
 
-function QuizOnboardingStep5({onNext, onPrev, updateChronoBackground, updateChronoTextColor}) {
+function QuizOnboardingStep5({onNext, onPrev, time, formatTime}) {
     const [modalVisible, setModalVisible] = useState(false);
     const [buttonActive, setButtonActive] = useState("");
     const [modalType, setModalType] = useState("");
+    const [chronoBackground, setChronoBackground] = useState("");
+    const [chronoTextColor, setChronoTextColor] = useState("");
+
+    const updateChronoBackground = (background) => {
+        setChronoBackground(background);
+    };
+
+    const updateChronoTextColor = (textColor) => {
+        setChronoTextColor(textColor);
+    };
 
     const openModal = (type) => {
         setModalVisible(true);
@@ -299,6 +331,7 @@ function QuizOnboardingStep5({onNext, onPrev, updateChronoBackground, updateChro
                     <div className='mb-2.5 mx-10'>
                         <div className='flex flex-grow'>
                             <h1 className='text-4xl ml-2 text-white font-bold'>PARTIE 2 : PRENDRE LE CONTRÔLE DE L’APPEL (2 / 2)</h1>
+                            <Chronometre chronoBackground={chronoBackground} chronoTextColor={chronoTextColor} formatTime={formatTime} time={time}/>
                         </div>
                         <div className='flex flex-col bg-gray-800/50 mt-16 rounded-2xl items-center'>
                             <div className='text-white ml-1.5'>
@@ -341,10 +374,20 @@ function QuizOnboardingStep5({onNext, onPrev, updateChronoBackground, updateChro
     )
 }
 
-function QuizOnboardingStep6({onNext, onPrev, handleHabitualClickReturn, updateChronoBackground, updateChronoTextColor}) {
+function QuizOnboardingStep6({onNext, onPrev, handleHabitualClickReturn, time, formatTime}) {
     const [modalVisible, setModalVisible] = useState(false);
     const [buttonActive, setButtonActive] = useState("");
     const [modalType, setModalType] = useState("");
+    const [chronoBackground, setChronoBackground] = useState("");
+    const [chronoTextColor, setChronoTextColor] = useState("");
+
+    const updateChronoBackground = (background) => {
+        setChronoBackground(background);
+    };
+
+    const updateChronoTextColor = (textColor) => {
+        setChronoTextColor(textColor);
+    };
 
     const openModal = (type) => {
         setModalVisible(true);
@@ -385,6 +428,7 @@ function QuizOnboardingStep6({onNext, onPrev, handleHabitualClickReturn, updateC
                     <div className='mb-2.5 mx-10'>
                         <div className='flex flex-grow'>
                             <h1 className='text-4xl ml-2 text-white font-bold'>PARTIE 2 : PRENDRE LE CONTRÔLE DE L’APPEL (2 / 2)</h1>
+                            <Chronometre chronoBackground={chronoBackground} chronoTextColor={chronoTextColor} formatTime={formatTime} time={time}/>
                         </div>
                         <div className='flex flex-col bg-gray-800/50 mt-16 rounded-2xl items-center'>
                             <div className='text-white ml-1.5'>
@@ -427,10 +471,20 @@ function QuizOnboardingStep6({onNext, onPrev, handleHabitualClickReturn, updateC
     )
 }
 
-function QuizOnboardingStep7({onNext, onPrev, updateChronoBackground, updateChronoTextColor,}) {
+function QuizOnboardingStep7({onNext, onPrev, time, formatTime}) {
     const [modalVisible, setModalVisible] = useState(false);
     const [buttonActive, setButtonActive] = useState("");
     const [modalType, setModalType] = useState("");
+    const [chronoBackground, setChronoBackground] = useState("");
+    const [chronoTextColor, setChronoTextColor] = useState("");
+
+    const updateChronoBackground = (background) => {
+        setChronoBackground(background);
+    };
+
+    const updateChronoTextColor = (textColor) => {
+        setChronoTextColor(textColor);
+    };
 
     const openModal = (type) => {
         setModalVisible(true);
@@ -471,6 +525,7 @@ function QuizOnboardingStep7({onNext, onPrev, updateChronoBackground, updateChro
                     <div className='mb-2.5 mx-10'>
                         <div className='flex flex-grow'>
                             <h1 className='text-4xl ml-2 text-white font-bold'>PARTIE 3 : POURQUOI LE PROSPECT ACCEPTE LE CALL ?</h1>
+                            <Chronometre chronoBackground={chronoBackground} chronoTextColor={chronoTextColor} formatTime={formatTime} time={time}/>
                         </div>
                         <div className='flex flex-col bg-gray-800/50 mt-16 rounded-2xl items-center'>
                             <div className='text-white mr-0.5 mt-1.5'>
@@ -517,16 +572,20 @@ function QuizOnboardingStep7({onNext, onPrev, updateChronoBackground, updateChro
     )
 }
 
-function QuizOnboardingStep8({
-                                 onNext,
-                                 onPrev,
-                                 updateChronoBackground,
-                                 updateChronoTextColor,
-                                 handleHabitualClickReturn
-                             }) {
+function QuizOnboardingStep8({onNext, onPrev, time, formatTime}) {
     const [modalVisible, setModalVisible] = useState(false);
     const [buttonActive, setButtonActive] = useState("");
     const [modalType, setModalType] = useState("");
+    const [chronoBackground, setChronoBackground] = useState("");
+    const [chronoTextColor, setChronoTextColor] = useState("");
+
+    const updateChronoBackground = (background) => {
+        setChronoBackground(background);
+    };
+
+    const updateChronoTextColor = (textColor) => {
+        setChronoTextColor(textColor);
+    };
 
     const openModal = (type) => {
         setModalVisible(true);
@@ -567,6 +626,7 @@ function QuizOnboardingStep8({
                     <div className='mb-2.5 mx-10'>
                         <div className='flex flex-grow'>
                             <h1 className='text-4xl ml-2 text-white font-bold'>PARTIE 4 : QUELLE EST SA SITUATION ACTUELLE ?</h1>
+                            <Chronometre chronoBackground={chronoBackground} chronoTextColor={chronoTextColor} formatTime={formatTime} time={time}/>
                         </div>
                         <div className='flex flex-col left-0 bg-gray-800/50 max-w-full mt-16 rounded-2xl' style={{ width: '1302px'}}>
                             <div className='text-white mt-1.5'>
@@ -612,10 +672,20 @@ function QuizOnboardingStep8({
     )
 }
 
-function QuizOnboardingStep9({onNext, onPrev, updateChronoBackground, updateChronoTextColor,}) {
+function QuizOnboardingStep9({onNext, onPrev, time, formatTime}) {
     const [modalVisible, setModalVisible] = useState(false);
     const [buttonActive, setButtonActive] = useState("");
     const [modalType, setModalType] = useState("");
+    const [chronoBackground, setChronoBackground] = useState("");
+    const [chronoTextColor, setChronoTextColor] = useState("");
+
+    const updateChronoBackground = (background) => {
+        setChronoBackground(background);
+    };
+
+    const updateChronoTextColor = (textColor) => {
+        setChronoTextColor(textColor);
+    };
 
     const openModal = (type) => {
         setModalVisible(true);
@@ -657,6 +727,7 @@ function QuizOnboardingStep9({onNext, onPrev, updateChronoBackground, updateChro
                         <div className='flex flex-grow'>
                             <h1 className='text-4xl ml-2 text-white font-bold'>PARTIE 5 : </h1>
                             <h1 className='text-2xl ml-4 mt-1 text-white font-bold'>POURQUOI SA SITUATION ACTUELLE NE LUI CONVIENT PLUS ?</h1>
+                            <Chronometre chronoBackground={chronoBackground} chronoTextColor={chronoTextColor} formatTime={formatTime} time={time}/>
                         </div>
                         <div className='flex flex-col bg-gray-800/50 mt-16 pr-1 rounded-2xl items-center'>
                             <div className='text-white mt-1.5 mr-12'>
@@ -700,10 +771,20 @@ function QuizOnboardingStep9({onNext, onPrev, updateChronoBackground, updateChro
     )
 }
 
-function QuizOnboardingStep10({onNext, onPrev, updateChronoBackground, updateChronoTextColor,}) {
+function QuizOnboardingStep10({onNext, onPrev, time, formatTime}) {
     const [modalVisible, setModalVisible] = useState(false);
     const [buttonActive, setButtonActive] = useState("");
     const [modalType, setModalType] = useState("");
+    const [chronoBackground, setChronoBackground] = useState("");
+    const [chronoTextColor, setChronoTextColor] = useState("");
+
+    const updateChronoBackground = (background) => {
+        setChronoBackground(background);
+    };
+
+    const updateChronoTextColor = (textColor) => {
+        setChronoTextColor(textColor);
+    };
 
     const openModal = (type) => {
         setModalVisible(true);
@@ -744,6 +825,7 @@ function QuizOnboardingStep10({onNext, onPrev, updateChronoBackground, updateChr
                     <div className='mb-2.5 mx-10'>
                         <div className='flex flex-grow'>
                             <h1 className='text-4xl ml-2 text-white font-bold'>PARTIE 6 : QUELLE EST SA SITUATION DÉSIRÉE ?</h1>
+                            <Chronometre chronoBackground={chronoBackground} chronoTextColor={chronoTextColor} formatTime={formatTime} time={time}/>
                         </div>
                         <div className='flex flex-col bg-gray-800/50 mt-16 pr-0.5 rounded-2xl items-center'>
                             <div className='text-white mt-1.5 mr-24'>
@@ -789,10 +871,20 @@ function QuizOnboardingStep10({onNext, onPrev, updateChronoBackground, updateChr
     )
 }
 
-function QuizOnboardingStep11({onNext, onPrev, updateChronoBackground, updateChronoTextColor,}) {
+function QuizOnboardingStep11({onNext, onPrev, time, formatTime}) {
     const [modalVisible, setModalVisible] = useState(false);
     const [buttonActive, setButtonActive] = useState("");
     const [modalType, setModalType] = useState("");
+    const [chronoBackground, setChronoBackground] = useState("");
+    const [chronoTextColor, setChronoTextColor] = useState("");
+
+    const updateChronoBackground = (background) => {
+        setChronoBackground(background);
+    };
+
+    const updateChronoTextColor = (textColor) => {
+        setChronoTextColor(textColor);
+    };
 
     const openModal = (type) => {
         setModalVisible(true);
@@ -833,6 +925,7 @@ function QuizOnboardingStep11({onNext, onPrev, updateChronoBackground, updateChr
                     <div className='mb-2.5 mx-10'>
                         <div className='flex flex-grow'>
                             <h1 className='text-4xl ml-2 text-white font-bold'>PARTIE 7 : FAITES LUI COMPRENDRE QU’IL A BESOIN DE VOUS ?</h1>
+                            <Chronometre chronoBackground={chronoBackground} chronoTextColor={chronoTextColor} formatTime={formatTime} time={time}/>
                         </div>
                         <div className='flex flex-col bg-gray-800/50 mt-16 pr-0.5 rounded-2xl items-center'>
                             <div className='text-white mr-5 mb-3.5'>
@@ -874,10 +967,20 @@ function QuizOnboardingStep11({onNext, onPrev, updateChronoBackground, updateChr
     )
 }
 
-function QuizOnboardingStep12({onNext, onPrev, updateChronoBackground, updateChronoTextColor,}) {
+function QuizOnboardingStep12({onNext, onPrev, time, formatTime}) {
     const [modalVisible, setModalVisible] = useState(false);
     const [buttonActive, setButtonActive] = useState("");
     const [modalType, setModalType] = useState("");
+    const [chronoBackground, setChronoBackground] = useState("");
+    const [chronoTextColor, setChronoTextColor] = useState("");
+
+    const updateChronoBackground = (background) => {
+        setChronoBackground(background);
+    };
+
+    const updateChronoTextColor = (textColor) => {
+        setChronoTextColor(textColor);
+    };
 
     const openModal = (type) => {
         setModalVisible(true);
@@ -918,6 +1021,7 @@ function QuizOnboardingStep12({onNext, onPrev, updateChronoBackground, updateChr
                     <div className='mb-2.5 mx-10'>
                         <div className='flex flex-grow'>
                             <h1 className='text-4xl ml-2 text-white font-bold'>PARTIE 8 : AGITEZ LE PROBLÈME ET CRÉER L’URGENCE ?</h1>
+                            <Chronometre chronoBackground={chronoBackground} chronoTextColor={chronoTextColor} formatTime={formatTime} time={time}/>
                         </div>
                         <div className='flex flex-col bg-gray-800/50 mt-16 pr-0.5 rounded-2xl items-center'>
                             <div className='text-white mb-5 mt-0.5 mr-1.5'>
@@ -959,10 +1063,20 @@ function QuizOnboardingStep12({onNext, onPrev, updateChronoBackground, updateChr
     )
 }
 
-function QuizOnboardingStep13({onNext, onPrev, updateChronoBackground, updateChronoTextColor,}) {
+function QuizOnboardingStep13({onNext, onPrev, time, formatTime}) {
     const [modalVisible, setModalVisible] = useState(false);
     const [buttonActive, setButtonActive] = useState("");
     const [modalType, setModalType] = useState("");
+    const [chronoBackground, setChronoBackground] = useState("");
+    const [chronoTextColor, setChronoTextColor] = useState("");
+
+    const updateChronoBackground = (background) => {
+        setChronoBackground(background);
+    };
+
+    const updateChronoTextColor = (textColor) => {
+        setChronoTextColor(textColor);
+    };
 
     const openModal = (type) => {
         setModalVisible(true);
@@ -1003,6 +1117,7 @@ function QuizOnboardingStep13({onNext, onPrev, updateChronoBackground, updateChr
                     <div className='mb-2.5 mx-10'>
                         <div className='flex flex-grow'>
                             <h1 className='text-4xl ml-2 text-white font-bold'>PARTIE 9 : DEMANDER LA PERMISSION DE VENDRE ?</h1>
+                            <Chronometre chronoBackground={chronoBackground} chronoTextColor={chronoTextColor} formatTime={formatTime} time={time}/>
                         </div>
                         <div className='flex flex-col bg-gray-800/50 mt-16 pr-0.5 rounded-2xl items-center'>
                             <div className='text-white mb-2.5 mr-5'>
@@ -1047,10 +1162,20 @@ function QuizOnboardingStep13({onNext, onPrev, updateChronoBackground, updateChr
     )
 }
 
-function QuizOnboardingStep14({onNext, onPrev, updateChronoBackground, updateChronoTextColor,}) {
+function QuizOnboardingStep14({onNext, onPrev, time, formatTime}) {
     const [modalVisible, setModalVisible] = useState(false);
     const [buttonActive, setButtonActive] = useState("");
     const [modalType, setModalType] = useState("");
+    const [chronoBackground, setChronoBackground] = useState("");
+    const [chronoTextColor, setChronoTextColor] = useState("");
+
+    const updateChronoBackground = (background) => {
+        setChronoBackground(background);
+    };
+
+    const updateChronoTextColor = (textColor) => {
+        setChronoTextColor(textColor);
+    };
 
     const openModal = (type) => {
         setModalVisible(true);
@@ -1091,6 +1216,7 @@ function QuizOnboardingStep14({onNext, onPrev, updateChronoBackground, updateChr
                     <div className='mb-2.5 mx-10'>
                         <div className='flex flex-grow'>
                             <h1 className='text-4xl ml-2 text-white font-bold'>PARTIE 10 : PRÉSENTATION DE VOTRE OFFRE : (1 / 2)</h1>
+                            <Chronometre chronoBackground={chronoBackground} chronoTextColor={chronoTextColor} formatTime={formatTime} time={time}/>
                         </div>
                         <div className='flex flex-col bg-gray-800/50 mt-16 pr-0.5 rounded-2xl items-center'>
                             <div className='text-white mb-4 mr-5'>
@@ -1130,10 +1256,20 @@ function QuizOnboardingStep14({onNext, onPrev, updateChronoBackground, updateChr
     )
 }
 
-function QuizOnboardingStep15({onNext, onPrev, updateChronoBackground, updateChronoTextColor,}) {
+function QuizOnboardingStep15({onNext, onPrev, time, formatTime}) {
     const [modalVisible, setModalVisible] = useState(false);
     const [buttonActive, setButtonActive] = useState("");
     const [modalType, setModalType] = useState("");
+    const [chronoBackground, setChronoBackground] = useState("");
+    const [chronoTextColor, setChronoTextColor] = useState("");
+
+    const updateChronoBackground = (background) => {
+        setChronoBackground(background);
+    };
+
+    const updateChronoTextColor = (textColor) => {
+        setChronoTextColor(textColor);
+    };
 
     const openModal = (type) => {
         setModalVisible(true);
@@ -1174,6 +1310,7 @@ function QuizOnboardingStep15({onNext, onPrev, updateChronoBackground, updateChr
                     <div className='mb-2.5 mx-10'>
                         <div className='flex flex-grow'>
                             <h1 className='text-4xl ml-2 text-white font-bold'>PARTIE 10 : PRÉSENTATION DE VOTRE OFFRE : (2 / 2)</h1>
+                            <Chronometre chronoBackground={chronoBackground} chronoTextColor={chronoTextColor} formatTime={formatTime} time={time}/>
                         </div>
                         <div className='flex flex-col bg-gray-800/50 mt-16 rounded-2xl items-center'>
                             <div className='text-white mb-2.5'>
@@ -1221,8 +1358,6 @@ function QuizOnboardingStep15({onNext, onPrev, updateChronoBackground, updateChr
 
 function QuizOnboarding() {
     const [step, setStep] = useState(1);
-    const [chronoBackground, setChronoBackground] = useState("");
-    const [chronoTextColor, setChronoTextColor] = useState("");
 
     const handleNext = () => {
         setStep(step + 1);
@@ -1244,35 +1379,41 @@ function QuizOnboarding() {
         setStep(step - 3);
     };
 
-    const updateChronoBackground = (background) => {
-        setChronoBackground(background);
+
+    const [time, setTime] = useState(0);
+
+    useEffect(() => {
+        const interval = setInterval(() => {
+            setTime(time => time + 1);
+        }, 1000);
+
+        return () => clearInterval(interval);
+    }, []);
+
+    const formatTime = (time) => {
+        const minutes = Math.floor(time / 60);
+        const seconds = time % 60;
+        return `${minutes}:${seconds < 10 ? `0${seconds}` : seconds}`;
     };
 
-    const updateChronoTextColor = (textColor) => {
-        setChronoTextColor(textColor);
-    };
 
     return (
         <div className='flex'>
-            <div className='mr-3'>
-                {step >= 3 ?
-                    <Chronometre chronoBackground={chronoBackground} chronoTextColor={chronoTextColor}/> : null}
-            </div>
             {step === 1 && <QuizOnboardingStep1 onNext={handleNext} onPrev={handlePrev}/>}
-            {step === 2 && <QuizOnboardingStep2 onNext={handleNext} onPrev={handlePrev} updateChronoBackground={updateChronoBackground} updateChronoTextColor={updateChronoTextColor}/>}
-            {step === 3 && <QuizOnboardingStep3 onNext={handleNext} onPrev={handlePrev} updateChronoBackground={updateChronoBackground} updateChronoTextColor={updateChronoTextColor}/>}
-            {step === 4 && <QuizOnboardingStep4 onNext={handleNext} onPrev={handlePrev} handleHabitualClick={handleHabitualClick} updateChronoBackground={updateChronoBackground} updateChronoTextColor={updateChronoTextColor}/>}
-            {step === 5 && <QuizOnboardingStep5 onNext={handleHabitualClick} onPrev={handlePrev} updateChronoBackground={updateChronoBackground} updateChronoTextColor={updateChronoTextColor}/>}
-            {step === 6 && <QuizOnboardingStep6 onNext={handleNext} onPrev={handlePrev} updateChronoBackground={updateChronoBackground} updateChronoTextColor={updateChronoTextColor} handleHabitualClickReturn={handleHabitualClickReturn}/>}
-            {step === 7 && <QuizOnboardingStep7 onNext={handleNext} onPrev={handleClickReturn} updateChronoBackground={updateChronoBackground} updateChronoTextColor={updateChronoTextColor}/>}
-            {step === 8 && <QuizOnboardingStep8 onNext={handleNext} onPrev={handlePrev} updateChronoBackground={updateChronoBackground} updateChronoTextColor={updateChronoTextColor}/>}
-            {step === 9 && <QuizOnboardingStep9 onNext={handleNext} onPrev={handlePrev} updateChronoBackground={updateChronoBackground} updateChronoTextColor={updateChronoTextColor}/>}
-            {step === 10 && <QuizOnboardingStep10 onNext={handleNext} onPrev={handlePrev} updateChronoBackground={updateChronoBackground} updateChronoTextColor={updateChronoTextColor}/>}
-            {step === 11 && <QuizOnboardingStep11 onNext={handleNext} onPrev={handlePrev} updateChronoBackground={updateChronoBackground} updateChronoTextColor={updateChronoTextColor}/>}
-            {step === 12 && <QuizOnboardingStep12 onNext={handleNext} onPrev={handlePrev} updateChronoBackground={updateChronoBackground} updateChronoTextColor={updateChronoTextColor}/>}
-            {step === 13 && <QuizOnboardingStep13 onNext={handleNext} onPrev={handlePrev} updateChronoBackground={updateChronoBackground} updateChronoTextColor={updateChronoTextColor}/>}
-            {step === 14 && <QuizOnboardingStep14 onNext={handleNext} onPrev={handlePrev} updateChronoBackground={updateChronoBackground} updateChronoTextColor={updateChronoTextColor}/>}
-            {step === 15 && <QuizOnboardingStep15 onNext={handleNext} onPrev={handlePrev} updateChronoBackground={updateChronoBackground} updateChronoTextColor={updateChronoTextColor}/>}
+            {step === 2 && <QuizOnboardingStep2 onNext={handleNext} onPrev={handlePrev}/>}
+            {step === 3 && <QuizOnboardingStep3 onNext={handleNext} onPrev={handlePrev} time={time} formatTime={formatTime}/>}
+            {step === 4 && <QuizOnboardingStep4 onNext={handleNext} onPrev={handlePrev} handleHabitualClick={handleHabitualClick} time={time} formatTime={formatTime}/>}
+            {step === 5 && <QuizOnboardingStep5 onNext={handleHabitualClick} onPrev={handlePrev} time={time} formatTime={formatTime}/>}
+            {step === 6 && <QuizOnboardingStep6 onNext={handleNext} onPrev={handlePrev} handleHabitualClickReturn={handleHabitualClickReturn} time={time} formatTime={formatTime}/>}
+            {step === 7 && <QuizOnboardingStep7 onNext={handleNext} onPrev={handleClickReturn} time={time} formatTime={formatTime}/>}
+            {step === 8 && <QuizOnboardingStep8 onNext={handleNext} onPrev={handlePrev} time={time} formatTime={formatTime}/>}
+            {step === 9 && <QuizOnboardingStep9 onNext={handleNext} onPrev={handlePrev} time={time} formatTime={formatTime}/>}
+            {step === 10 && <QuizOnboardingStep10 onNext={handleNext} onPrev={handlePrev} time={time} formatTime={formatTime}/>}
+            {step === 11 && <QuizOnboardingStep11 onNext={handleNext} onPrev={handlePrev} time={time} formatTime={formatTime}/>}
+            {step === 12 && <QuizOnboardingStep12 onNext={handleNext} onPrev={handlePrev} time={time} formatTime={formatTime}/>}
+            {step === 13 && <QuizOnboardingStep13 onNext={handleNext} onPrev={handlePrev} time={time} formatTime={formatTime}/>}
+            {step === 14 && <QuizOnboardingStep14 onNext={handleNext} onPrev={handlePrev} time={time} formatTime={formatTime}/>}
+            {step === 15 && <QuizOnboardingStep15 onNext={handleNext} onPrev={handlePrev} time={time} formatTime={formatTime}/>}
         </div>
     )
 }
