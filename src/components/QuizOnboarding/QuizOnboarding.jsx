@@ -9,6 +9,7 @@ import starsEmoji from "../img/intonation-emoji/stars.png";
 import reflectEmoji from "../img/intonation-emoji/to-reflect-on.png";
 import secretEmoji from "../img/intonation-emoji/secret.png";
 import obviousEmoji from "../img/intonation-emoji/obvious.png";
+import InputText from "../InputText/InputText";
 
 function QuizOnboardingStep1({onNext, onPrev}) {
     const buttonRef = useRef(null);
@@ -111,8 +112,8 @@ function QuizOnboardingStep3({onNext, onPrev, time, formatTime}) {
         setModalVisible(true);
         setButtonActive(type);
         setModalType(type);
-        updateChronoBackground("#FFFFFF");
-        updateChronoTextColor("#000000");
+        updateChronoBackground("rgba(75,85,99,0.5)");
+        updateChronoTextColor("#FFFFFF");
     };
 
     const closeModal = () => {
@@ -138,7 +139,7 @@ function QuizOnboardingStep3({onNext, onPrev, time, formatTime}) {
     return (
         <div className={`flex justify-items-center mr-24 z-10 ${modalVisible ? 'fixed top-0 left-0 w-full h-full bg-black/80 flex items-center justify-center pr-24' : ''}`}>
             <div className='flex justify-center mx-16 z-50'>
-                <PanicButton openModal={openModal} buttonActive={buttonActive}/>
+                <PanicButton openModal={openModal} buttonActive={buttonActive}/> {/* augmenter taille horloge avec du css */}
             </div>
             <div className='flex justify-items-center'>
                 <div className={`bg-gray-400/30 rounded-3xl ${modalVisible ? '' : 'border-4'} border-gray-500/25 backdrop-blur-sm pt-14`}>
@@ -157,7 +158,7 @@ function QuizOnboardingStep3({onNext, onPrev, time, formatTime}) {
                             </div>
                         </div>
                         <div className='mt-10 mb-8 grid grid-cols-6 gap-2'>
-                            <Intonation image={starsEmoji} text={"c'est une évidence"}/>
+                            <Intonation image={starsEmoji} text={"enthousiaste"}/>
                             <div className='col-end-11 col-span-2'>
                                 <button onClick={onNext}
                                         className='flex bg-gray-400/80 hover:bg-gray-500 text-white font-bold py-2 px-4 rounded-full'>
@@ -528,20 +529,18 @@ function QuizOnboardingStep7({onNext, onPrev, time, formatTime}) {
                             <Chronometre chronoBackground={chronoBackground} chronoTextColor={chronoTextColor} formatTime={formatTime} time={time}/>
                         </div>
                         <div className='flex flex-col bg-gray-800/50 mt-16 rounded-2xl items-center'>
-                            <div className='text-white mr-0.5 mt-1.5'>
-                                <div className='ml-14 mr-64 max-w-6xl space-y-12 mt-16 mb-20'>
+                            <div className='text-white mr-0.5 mt-2.5'>
+                                <div className='ml-14 mr-64 max-w-6xl space-y-9 mt-16 mb-20'>
                                     {modalVisible && renderModal()}
                                     <h1 className='text-3xl font-bold'>Parfait, alors John qu’est-ce qui vous à motifé à
                                         réservé cet appel ?</h1>
-                                    <h1 className='text-2xl'>Depuis combien de temps faites vous ça ?</h1>
-                                    <h1 className='text-2xl'>Pouvez-vous m’en dire plus sur X ?</h1>
-                                    <h1 className='text-2xl'>Pourquoi pensez-vous que ce problème existe
+                                    <h1 className='text-2xl italic'>Depuis combien de temps faites vous ça ?</h1>
+                                    <h1 className='text-2xl italic'>Pouvez-vous m’en dire plus sur X ?</h1>
+                                    <h1 className='text-2xl italic'>Pourquoi pensez-vous que ce problème existe
                                         ?</h1>
-                                    <input
-                                        type="text"
-                                        className="text-white border-white border-b-2 w-full bg-transparent outline-none text-2xl ::placeholder pl-2 pb-1"
-                                        placeholder="Réponse..."
-                                    />
+                                </div>
+                                <div className='pb-6'>
+                                    <InputText/>
                                 </div>
                             </div>
                         </div>
@@ -629,19 +628,19 @@ function QuizOnboardingStep8({onNext, onPrev, time, formatTime}) {
                             <Chronometre chronoBackground={chronoBackground} chronoTextColor={chronoTextColor} formatTime={formatTime} time={time}/>
                         </div>
                         <div className='flex flex-col left-0 bg-gray-800/50 max-w-full mt-16 rounded-2xl' style={{ width: '1302px'}}>
-                            <div className='text-white mt-1.5'>
-                                <div className='ml-14 space-y-12 mt-16 mb-20'> {/* Augmenter la width ! */}
+                            <div className='text-white mt-2.5'>
+                                <div className='ml-14 space-y-9 mt-16 mb-20'> {/* Augmenter la width ! */}
                                     {modalVisible && renderModal()}
                                     <h1 className='text-3xl font-bold'>Concrètement, que vendez vous ?</h1>
-                                    <div className='flex flex-col mr-64 space-y-12'>
-                                        <h1 className='text-2xl'>À combien le vendez-vous ?</h1>
-                                        <h1 className='text-2xl'>À qui le vendez-vous ?</h1>
-                                        <h1 className='text-2xl'>Combien de Chiffres d’affaires faites vous ?</h1>
-                                        <input
-                                            type="text"
-                                            className="text-white border-white border-b-2 w-full bg-transparent outline-none text-2xl ::placeholder pl-2 pb-1"
-                                            placeholder="Réponse..."/>
+                                    <div className='flex flex-col mr-64 space-y-9'>
+                                        <h1 className='text-2xl italic'>À combien le vendez-vous ?</h1>
+                                        <h1 className='text-2xl italic'>À qui le vendez-vous ?</h1>
+                                        <h1 className='text-2xl italic'>Combien de Chiffres d’affaires faites vous
+                                            ?</h1>
                                     </div>
+                                </div>
+                                <div className='pb-6'>
+                                    <InputText/>
                                 </div>
                             </div>
                         </div>
@@ -649,7 +648,7 @@ function QuizOnboardingStep8({onNext, onPrev, time, formatTime}) {
                             <Intonation image={reflectEmoji} text={"ça m'instéresse vraiment"}/>
                             <div className='flex col-end-11 space-x-3 col-span-3'>
                                 <div className='flex mt-6 justify-end'>
-                                    <button onClick={onPrev}
+                                <button onClick={onPrev}
                                             className='flex bg-gray-400/80 hover:bg-gray-500 text-white font-bold py-2.5 px-3 rounded-full'>
                                         <img className='h-5 w-5 my-4 mr-4 ml-3 rotate-180'
                                              src={require('../img/play.png')}
@@ -729,18 +728,21 @@ function QuizOnboardingStep9({onNext, onPrev, time, formatTime}) {
                             <h1 className='text-2xl ml-4 mt-1 text-white font-bold'>POURQUOI SA SITUATION ACTUELLE NE LUI CONVIENT PLUS ?</h1>
                             <Chronometre chronoBackground={chronoBackground} chronoTextColor={chronoTextColor} formatTime={formatTime} time={time}/>
                         </div>
-                        <div className='flex flex-col bg-gray-800/50 mt-16 pr-1 rounded-2xl items-center'>
-                            <div className='text-white mt-1.5 mr-12'>
-                                {modalVisible && renderModal()}
-                                <div className='ml-14 mr-80 max-w-6xl space-y-20 my-16'>
-                                    <h1 className='text-3xl font-bold'>Est-ce que cette façon d’obtenir vos clients vous convient ?</h1>
-                                    <h1 className='text-2xl'>Quels sont les processus que vous avez en place pour attirer des clients ?</h1>
-                                    <h1 className='text-2xl'>Combien cela vous coûte aujourd’hui d’obtenir un client ?</h1>
-                                    <input
-                                        type="text"
-                                        className="text-white border-white border-b-2 w-full bg-transparent outline-none text-2xl ::placeholder pl-2 pb-1"
-                                        placeholder="Réponse..."
-                                    />
+                        <div className='flex flex-col left-0 bg-gray-800/50 max-w-full mt-16 rounded-2xl'>
+                            <div className='text-white mr-1'>
+                                <div className='mr-12 pt-3.5'>
+                                    <div className='ml-14 mr-80 space-y-9 mt-16'>
+                                        {modalVisible && renderModal()}
+                                        <h1 className='text-3xl font-bold'>Est-ce que cette façon d’obtenir vos clients vous
+                                            convient ?</h1>
+                                        <h1 className='text-2xl italic'>Quels sont les processus que vous avez en place pour
+                                            attirer des clients ?</h1>
+                                        <h1 className='text-2xl italic'>Combien cela vous coûte aujourd’hui d’obtenir un
+                                            client ?</h1>
+                                    </div>
+                                </div>
+                                <div className='mb-24 mt-32'>
+                                    <InputText />
                                 </div>
                             </div>
                         </div>
@@ -829,19 +831,15 @@ function QuizOnboardingStep10({onNext, onPrev, time, formatTime}) {
                         </div>
                         <div className='flex flex-col bg-gray-800/50 mt-16 pr-0.5 rounded-2xl items-center'>
                             <div className='text-white mt-1.5 mr-24'>
-                                <div className='ml-14 mr-96 max-w-6xl space-y-10 mt-12 mb-14'>
+                                <div className='ml-14 mr-96 max-w-6xl space-y-9 mt-12 mb-14'>
                                     {modalVisible && renderModal()}
                                     <h1 className='text-3xl font-bold'>Ok John, quel est votre objectif financier d’ici 1 an ?</h1>
-                                    <h1 className='text-2xl'>D’accord, qu’est-ce qui vous motive à atteindre ce chiffre précis ?</h1>
-                                    <h1 className='text-2xl'>Qu’est-ce qui changerait pour vous si vous atteignez ces chiffres ?</h1>
-                                    <h1 className='text-2xl'>Est-ce que vous avez des objecifs plus “émotionnel” ?</h1>
-                                    <h1 className='text-2xl'>Qu’est-ce que cela changerait pour vous parvenez à l’atteindre ?</h1>
-                                    <input
-                                        type="text"
-                                        className="text-white border-white border-b-2 w-full bg-transparent outline-none text-2xl ::placeholder pl-2 pb-1"
-                                        placeholder="Réponse..."
-                                    />
+                                    <h1 className='text-2xl italic'>D’accord, qu’est-ce qui vous motive à atteindre ce chiffre précis ?</h1>
+                                    <h1 className='text-2xl italic'>Qu’est-ce qui changerait pour vous si vous atteignez ces chiffres ?</h1>
+                                    <h1 className='text-2xl italic'>Est-ce que vous avez des objecifs plus “émotionnel” ?</h1>
+                                    <h1 className='text-2xl italic'>Qu’est-ce que cela changerait pour vous parvenez à l’atteindre ?</h1>
                                 </div>
+                                <InputText />
                             </div>
                         </div>
                         <div className='mt-10 mb-8 grid grid-cols-6 gap-2'>
@@ -927,16 +925,16 @@ function QuizOnboardingStep11({onNext, onPrev, time, formatTime}) {
                             <h1 className='text-4xl ml-2 text-white font-bold'>PARTIE 7 : FAITES LUI COMPRENDRE QU’IL A BESOIN DE VOUS ?</h1>
                             <Chronometre chronoBackground={chronoBackground} chronoTextColor={chronoTextColor} formatTime={formatTime} time={time}/>
                         </div>
-                        <div className='flex flex-col bg-gray-800/50 mt-16 pr-0.5 rounded-2xl items-center'>
-                            <div className='text-white mr-5 mb-3.5'>
-                                <div className='mx-64 max-w-3xl space-y-20 mt-32 mb-36'>
+                        <div className='flex flex-col bg-gray-800/50 mt-16 pr-0.5 rounded-2xl'>
+                            <div className='text-white mr-7 mb-3.5'>
+                                <div className='ml-14 mr-80 max-w-4xl left-0 space-y-20 mt-32 mb-28'>
                                     {modalVisible && renderModal()}
-                                    <h1 className='text-3xl font-bold '>Ok John, donc vous faites actuellement X € par mois et vous voulez en faire X €, aujourd’hui qu’est ce que vous en empêche aujourd’hui ?</h1>
-                                    <input
-                                        type="text"
-                                        className="text-white border-white border-b-2 w-full bg-transparent outline-none text-2xl ::placeholder pl-2 pb-1"
-                                        placeholder="Réponse..."
-                                    />
+                                    <h1 className='text-3xl font-bold '>Ok John, donc vous faites actuellement X € par
+                                        mois et vous voulez en faire X €, aujourd’hui qu’est ce que vous en empêche
+                                        aujourd’hui ?</h1>
+                                </div>
+                                <div className='pb-14'>
+                                    <InputText />
                                 </div>
                             </div>
                         </div>
@@ -1023,16 +1021,16 @@ function QuizOnboardingStep12({onNext, onPrev, time, formatTime}) {
                             <h1 className='text-4xl ml-2 text-white font-bold'>PARTIE 8 : AGITEZ LE PROBLÈME ET CRÉER L’URGENCE ?</h1>
                             <Chronometre chronoBackground={chronoBackground} chronoTextColor={chronoTextColor} formatTime={formatTime} time={time}/>
                         </div>
-                        <div className='flex flex-col bg-gray-800/50 mt-16 pr-0.5 rounded-2xl items-center'>
-                            <div className='text-white mb-5 mt-0.5 mr-1.5'>
-                                <div className='mx-52 max-w-6xl my-40'>
-                                    {modalVisible && renderModal()}
-                                    <h1 className='text-3xl font-bold mb-24'>Ok, et à partir de quand souhaitez vous atteindre ce seuil ?</h1>
-                                    <input
-                                        type="text"
-                                        className="text-white border-white border-b-2 w-full bg-transparent outline-none text-2xl ::placeholder pl-2 pb-1"
-                                        placeholder="Réponse..."
-                                    />
+                        <div className='flex flex-col bg-gray-800/50 mt-16 pr-0.5 rounded-2xl'>
+                            <div className='text-white mr-0.5'>
+                                <div className='mb-5 pt-1.5 mr-11'>
+                                    <div className='ml-14 mr-80 max-w-6xl my-40'>
+                                        {modalVisible && renderModal()}
+                                        <h1 className='text-3xl font-bold mb-24'>Ok, et à partir de quand souhaitez vous atteindre ce seuil ?</h1>
+                                    </div>
+                                </div>
+                                <div className='pb-14'>
+                                    <InputText />
                                 </div>
                             </div>
                         </div>
@@ -1123,15 +1121,15 @@ function QuizOnboardingStep13({onNext, onPrev, time, formatTime}) {
                             <div className='text-white mb-2.5 mr-5'>
                                 <div className='mx-16 max-w-6xl space-y-20 my-20'>
                                     {modalVisible && renderModal()}
-                                    <h1 className='text-3xl font-bold'>Ok, merci John, écoutez maintenant je suis sur que je peux
+                                    <h1 className='text-3xl font-bold'>Ok, merci John, écoutez maintenant je suis sur
+                                        que je peux
                                         vous accompagner...</h1>
-                                    <h1 className='text-3xl font-bold'>Est-ce que vous voulez que je vous explique comment nous
+                                    <h1 className='text-3xl font-bold'>Est-ce que vous voulez que je vous explique
+                                        comment nous
                                         accompagnons nos clients ?</h1>
-                                    <input
-                                        type="text"
-                                        className="text-white border-white border-b-2 w-full bg-transparent outline-none text-2xl ::placeholder pl-2 pb-1"
-                                        placeholder="Réponse..."
-                                    />
+                                </div>
+                                <div className='pb-6'>
+                                    <InputText/>
                                 </div>
                             </div>
                         </div>
@@ -1312,20 +1310,19 @@ function QuizOnboardingStep15({onNext, onPrev, time, formatTime}) {
                             <h1 className='text-4xl ml-2 text-white font-bold'>PARTIE 10 : PRÉSENTATION DE VOTRE OFFRE : (2 / 2)</h1>
                             <Chronometre chronoBackground={chronoBackground} chronoTextColor={chronoTextColor} formatTime={formatTime} time={time}/>
                         </div>
-                        <div className='flex flex-col bg-gray-800/50 mt-16 rounded-2xl items-center'>
-                            <div className='text-white mb-2.5'>
-                                {modalVisible && renderModal()}
-                                <div className='mx-32 max-w-6xl space-y-32 mt-24 mb-28'>
+                        <div className='flex flex-col bg-gray-800/50 mt-16 rounded-2xl'>
+                            <div className='text-white mb-0.5 mr-2'>
+                                <div className='ml-14 mr-48 max-w-6xl space-y-32 mt-24 mb-24'>
                                     <div className='space-y-14'>
-                                        <h1 className='text-3xl font-bold'>Et si vous êtes partant on peut commencer dès la semaine
+                                        {modalVisible && renderModal()}
+                                        <h1 className='text-3xl font-bold'>Et si vous êtes partant on peut commencer dès
+                                            la semaine
                                             prochaine !</h1>
                                         <h1 className='text-3xl font-bold'>Qu'en pensez-vous ?</h1>
                                     </div>
-                                    <input
-                                        type="text"
-                                        className="text-white border-white border-b-2 w-full bg-transparent outline-none text-2xl ::placeholder pl-2 pb-1"
-                                        placeholder="Réponse..."
-                                    />
+                                </div>
+                                <div className='pb-24'>
+                                    <InputText/>
                                 </div>
                             </div>
                         </div>
