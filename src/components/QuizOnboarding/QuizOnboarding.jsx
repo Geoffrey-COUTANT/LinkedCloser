@@ -152,7 +152,7 @@ function QuizOnboardingStep3({onNext, onPrev, time, formatTime}) {
                             <div className='text-white'>
                                 <div className='mx-3.5'>
                                     <h1 className='text-3xl font-bold'>Bonjour John ! Comment allez-vous ?</h1>
-                                    <h2 className='text-2xl mt-7'>D'où est-ce que vous m'appelez ?</h2>
+                                    <h2 className='text-2xl mt-7 italic'>D'où est-ce que vous m'appelez ?</h2>
                                     {modalVisible && renderModal()}
                                 </div>
                             </div>
