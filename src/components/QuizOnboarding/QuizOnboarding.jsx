@@ -10,6 +10,7 @@ import reflectEmoji from "../img/intonation-emoji/to-reflect-on.png";
 import secretEmoji from "../img/intonation-emoji/secret.png";
 import obviousEmoji from "../img/intonation-emoji/obvious.png";
 import InputText from "../InputText/InputText";
+import axios from "axios";
 
 function QuizOnboardingStep1({onNext, onPrev}) {
     const buttonRef = useRef(null);
@@ -71,6 +72,22 @@ function QuizOnboardingStep1({onNext, onPrev}) {
 }
 
 function QuizOnboardingStep2({onNext, onPrev}) {
+    const [name, setName] = useState('');
+    const [error, setError] = useState(null);
+
+    const handleStartExchange = async () => {
+        try {
+            const response = await axios.post('http://localhost:5058/createUser', null, {
+                params: { name }
+            });
+            console.log('User created:', response.data);
+            localStorage.setItem('userId', response.data.id);
+            onNext(response.data.id);
+        } catch (error) {
+            setError(error.response?.data?.message);
+            console.error('There was an error creating the user!', error);
+        }
+    };
     return (
         <div className='flex justify-center items-center'>
             <div className='bg-gray-400/30 rounded-3xl border-4 border-gray-500/25 backdrop-blur-sm py-20'>
@@ -81,8 +98,10 @@ function QuizOnboardingStep2({onNext, onPrev}) {
                             type="text"
                             className="text-white border-white border-b-2 w-full bg-transparent outline-none text-4xl mt-36 ::placeholder pl-2 pb-1"
                             placeholder="Réponse..."
+                            value={name}
+                            onChange={e => setName(e.target.value)}
                         />
-                        <button onClick={onNext}
+                        <button onClick={handleStartExchange}
                                 className='flex bg-gray-400/80 hover:bg-gray-500 text-white font-bold py-4 px-7 my-32 rounded-full text-lg'>DÉMARRER
                             L'ÉCHANGE<img className='h-5 w-5 ml-3 mt-0.5' src={require('../img/play.png')} alt="logo"/>
                         </button>
@@ -93,12 +112,13 @@ function QuizOnboardingStep2({onNext, onPrev}) {
     )
 }
 
-function QuizOnboardingStep3({onNext, onPrev, time, formatTime}) {
+function QuizOnboardingStep3({userId, onNext, onPrev, time, formatTime}) {
     const [modalVisible, setModalVisible] = useState(false);
     const [buttonActive, setButtonActive] = useState("");
     const [modalType, setModalType] = useState("");
     const [chronoBackground, setChronoBackground] = useState("");
     const [chronoTextColor, setChronoTextColor] = useState("");
+    const [userName, setUserName] = useState('');
 
     const updateChronoBackground = (background) => {
         setChronoBackground(background);
@@ -136,9 +156,26 @@ function QuizOnboardingStep3({onNext, onPrev, time, formatTime}) {
                 return null;
         }
     };
+    useEffect(() => {
+        const getUser = async () => {
+            const userId = localStorage.getItem('userId');
+            if (!userId) {
+                console.error('No user ID found in local storage');
+                return;
+            }
+            try {
+                const response = await axios.get(`http://localhost:5058/users/${userId}`);
+                setUserName(response.data.name);
+            } catch (error) {
+                console.error('Erreur lors de la récupération de l\'utilisateur', error);
+            }
+        };
+        getUser();
+    }, []);
+
     return (
         <div className={`flex justify-items-center mr-24 z-10 ${modalVisible ? 'fixed top-0 left-0 w-full h-full bg-black/80 flex items-center justify-center pr-24' : ''}`}>
-            <div className='flex justify-center mx-16 z-50'>
+            <div className={`flex justify-center mx-16 z-50 ${modalVisible ? 'pr-2' : ''}`}>
                 <PanicButton openModal={openModal} buttonActive={buttonActive}/> {/* augmenter taille horloge avec du css */}
             </div>
             <div className='flex justify-items-center'>
@@ -151,7 +188,7 @@ function QuizOnboardingStep3({onNext, onPrev, time, formatTime}) {
                         <div className='flex flex-col bg-gray-800/50 py-52 mt-16 rounded-2xl items-center'>
                             <div className='text-white'>
                                 <div className='mx-3.5'>
-                                    <h1 className='text-3xl font-bold'>Bonjour John ! Comment allez-vous ?</h1>
+                                    <h1 className='text-3xl font-bold'>Bonjour {userName} ! Comment allez-vous ?</h1>
                                     <h2 className='text-2xl mt-7 italic'>D'où est-ce que vous m'appelez ?</h2>
                                     {modalVisible && renderModal()}
                                 </div>
@@ -219,7 +256,7 @@ function QuizOnboardingStep4({handleHabitualClick, time, formatTime, onNext, onP
     };
     return (
         <div className={`flex justify-items-center mr-24 z-10 ${modalVisible ? 'fixed top-0 left-0 w-full h-full bg-black/80 flex items-center justify-center pr-24' : ''}`}>
-            <div className='flex justify-center mx-16 z-50'>
+            <div className={`flex justify-center mx-16 z-50 ${modalVisible ? 'pr-2' : ''}`}>
                 <PanicButton openModal={openModal} buttonActive={buttonActive}/>
             </div>
             <div className='flex justify-items-center'>
@@ -478,6 +515,7 @@ function QuizOnboardingStep7({onNext, onPrev, time, formatTime}) {
     const [modalType, setModalType] = useState("");
     const [chronoBackground, setChronoBackground] = useState("");
     const [chronoTextColor, setChronoTextColor] = useState("");
+    const [userName, setUserName] = useState('');
 
     const updateChronoBackground = (background) => {
         setChronoBackground(background);
@@ -515,6 +553,22 @@ function QuizOnboardingStep7({onNext, onPrev, time, formatTime}) {
                 return null;
         }
     };
+    useEffect(() => {
+        const getUser = async () => {
+            const userId = localStorage.getItem('userId');
+            if (!userId) {
+                console.error('No user ID found in local storage');
+                return;
+            }
+            try {
+                const response = await axios.get(`http://localhost:5058/users/${userId}`);
+                setUserName(response.data.name);
+            } catch (error) {
+                console.error('Erreur lors de la récupération de l\'utilisateur', error);
+            }
+        };
+        getUser();
+    }, []);
     return (
         <div
             className={`flex justify-items-center mr-24 z-10 ${modalVisible ? 'fixed top-0 left-0 w-full h-full bg-black/80 flex items-center justify-center pr-24' : ''}`}>
@@ -522,17 +576,19 @@ function QuizOnboardingStep7({onNext, onPrev, time, formatTime}) {
                 <PanicButton openModal={openModal} buttonActive={buttonActive}/>
             </div>
             <div className='flex justify-items-center'>
-            <div className='bg-gray-400/30 rounded-3xl border-4 border-gray-500/25 backdrop-blur-sm pt-14'>
+                <div className='bg-gray-400/30 rounded-3xl border-4 border-gray-500/25 backdrop-blur-sm pt-14'>
                     <div className='mb-2.5 mx-10'>
                         <div className='flex flex-grow'>
-                            <h1 className='text-4xl ml-2 text-white font-bold'>PARTIE 3 : POURQUOI LE PROSPECT ACCEPTE LE CALL ?</h1>
+                            <div className='flex mr-3'>
+                                <h1 className='text-4xl ml-2 mr-80 text-white font-bold'>PARTIE 3 : POURQUOI LE PROSPECT ACCEPTE LE CALL ?</h1>
+                            </div>
                             <Chronometre chronoBackground={chronoBackground} chronoTextColor={chronoTextColor} formatTime={formatTime} time={time}/>
                         </div>
-                        <div className='flex flex-col bg-gray-800/50 mt-16 rounded-2xl items-center'>
+                        <div className='flex flex-col bg-gray-800/50 mt-16 rounded-2xl'>
                             <div className='text-white mr-0.5 mt-2.5'>
-                                <div className='ml-14 mr-64 max-w-6xl space-y-9 mt-16 mb-20'>
+                                <div className='ml-14 space-y-9 mt-16 mb-20'>
                                     {modalVisible && renderModal()}
-                                    <h1 className='text-3xl font-bold'>Parfait, alors John qu’est-ce qui vous à motifé à
+                                    <h1 className='text-3xl font-bold'>Parfait, alors {userName} qu’est-ce qui vous à motifé à
                                         réservé cet appel ?</h1>
                                     <h1 className='text-2xl italic'>Depuis combien de temps faites vous ça ?</h1>
                                     <h1 className='text-2xl italic'>Pouvez-vous m’en dire plus sur X ?</h1>
@@ -779,6 +835,7 @@ function QuizOnboardingStep10({onNext, onPrev, time, formatTime}) {
     const [modalType, setModalType] = useState("");
     const [chronoBackground, setChronoBackground] = useState("");
     const [chronoTextColor, setChronoTextColor] = useState("");
+    const [userName, setUserName] = useState('');
 
     const updateChronoBackground = (background) => {
         setChronoBackground(background);
@@ -816,6 +873,22 @@ function QuizOnboardingStep10({onNext, onPrev, time, formatTime}) {
                 return null;
         }
     };
+    useEffect(() => {
+        const getUser = async () => {
+            const userId = localStorage.getItem('userId');
+            if (!userId) {
+                console.error('No user ID found in local storage');
+                return;
+            }
+            try {
+                const response = await axios.get(`http://localhost:5058/users/${userId}`);
+                setUserName(response.data.name);
+            } catch (error) {
+                console.error('Erreur lors de la récupération de l\'utilisateur', error);
+            }
+        };
+        getUser();
+    }, []);
     return (
         <div
             className={`flex justify-items-center mr-24 z-10 ${modalVisible ? 'fixed top-0 left-0 w-full h-full bg-black/80 flex items-center justify-center pr-24' : ''}`}>
@@ -826,14 +899,18 @@ function QuizOnboardingStep10({onNext, onPrev, time, formatTime}) {
                 <div className='bg-gray-400/30 rounded-3xl border-4 border-gray-500/25 backdrop-blur-sm pt-14'>
                     <div className='mb-2.5 mx-10'>
                         <div className='flex flex-grow'>
-                            <h1 className='text-4xl ml-2 text-white font-bold'>PARTIE 6 : QUELLE EST SA SITUATION DÉSIRÉE ?</h1>
+                            <div className='flex mr-3.5'>
+                                <div className='flex mr-16'>
+                                    <h1 className='text-4xl ml-2 mr-96 text-white font-bold'>PARTIE 6 : QUELLE EST SA SITUATION DÉSIRÉE ?</h1>
+                                </div>
+                            </div>
                             <Chronometre chronoBackground={chronoBackground} chronoTextColor={chronoTextColor} formatTime={formatTime} time={time}/>
                         </div>
-                        <div className='flex flex-col bg-gray-800/50 mt-16 pr-0.5 rounded-2xl items-center'>
+                        <div className='flex flex-col bg-gray-800/50 mt-16 pr-0.5 rounded-2xl'>
                             <div className='text-white mt-1.5 mr-24'>
-                                <div className='ml-14 mr-96 max-w-6xl space-y-9 mt-12 mb-14'>
+                                <div className='ml-14 space-y-9 mt-12 mb-14'>
                                     {modalVisible && renderModal()}
-                                    <h1 className='text-3xl font-bold'>Ok John, quel est votre objectif financier d’ici 1 an ?</h1>
+                                    <h1 className='text-3xl font-bold'>Ok {userName}, quel est votre objectif financier d’ici 1 an ?</h1>
                                     <h1 className='text-2xl italic'>D’accord, qu’est-ce qui vous motive à atteindre ce chiffre précis ?</h1>
                                     <h1 className='text-2xl italic'>Qu’est-ce qui changerait pour vous si vous atteignez ces chiffres ?</h1>
                                     <h1 className='text-2xl italic'>Est-ce que vous avez des objecifs plus “émotionnel” ?</h1>
@@ -875,6 +952,7 @@ function QuizOnboardingStep11({onNext, onPrev, time, formatTime}) {
     const [modalType, setModalType] = useState("");
     const [chronoBackground, setChronoBackground] = useState("");
     const [chronoTextColor, setChronoTextColor] = useState("");
+    const [userName, setUserName] = useState('');
 
     const updateChronoBackground = (background) => {
         setChronoBackground(background);
@@ -912,6 +990,22 @@ function QuizOnboardingStep11({onNext, onPrev, time, formatTime}) {
                 return null;
         }
     };
+    useEffect(() => {
+        const getUser = async () => {
+            const userId = localStorage.getItem('userId');
+            if (!userId) {
+                console.error('No user ID found in local storage');
+                return;
+            }
+            try {
+                const response = await axios.get(`http://localhost:5058/users/${userId}`);
+                setUserName(response.data.name);
+            } catch (error) {
+                console.error('Erreur lors de la récupération de l\'utilisateur', error);
+            }
+        };
+        getUser();
+    }, []);
     return (
         <div
             className={`flex justify-items-center mr-24 z-10 ${modalVisible ? 'fixed top-0 left-0 w-full h-full bg-black/80 flex items-center justify-center pr-24' : ''}`}>
@@ -929,7 +1023,7 @@ function QuizOnboardingStep11({onNext, onPrev, time, formatTime}) {
                             <div className='text-white mr-7 mb-3.5'>
                                 <div className='ml-14 mr-80 max-w-4xl left-0 space-y-20 mt-32 mb-28'>
                                     {modalVisible && renderModal()}
-                                    <h1 className='text-3xl font-bold '>Ok John, donc vous faites actuellement X € par
+                                    <h1 className='text-3xl font-bold '>Ok {userName}, donc vous faites actuellement X € par
                                         mois et vous voulez en faire X €, aujourd’hui qu’est ce que vous en empêche
                                         aujourd’hui ?</h1>
                                 </div>
@@ -1067,6 +1161,7 @@ function QuizOnboardingStep13({onNext, onPrev, time, formatTime}) {
     const [modalType, setModalType] = useState("");
     const [chronoBackground, setChronoBackground] = useState("");
     const [chronoTextColor, setChronoTextColor] = useState("");
+    const [userName, setUserName] = useState('');
 
     const updateChronoBackground = (background) => {
         setChronoBackground(background);
@@ -1104,6 +1199,22 @@ function QuizOnboardingStep13({onNext, onPrev, time, formatTime}) {
                 return null;
         }
     };
+    useEffect(() => {
+        const getUser = async () => {
+            const userId = localStorage.getItem('userId');
+            if (!userId) {
+                console.error('No user ID found in local storage');
+                return;
+            }
+            try {
+                const response = await axios.get(`http://localhost:5058/users/${userId}`);
+                setUserName(response.data.name);
+            } catch (error) {
+                console.error('Erreur lors de la récupération de l\'utilisateur', error);
+            }
+        };
+        getUser();
+    }, []);
     return (
         <div
             className={`flex justify-items-center mr-24 z-10 ${modalVisible ? 'fixed top-0 left-0 w-full h-full bg-black/80 flex items-center justify-center pr-24' : ''}`}>
@@ -1121,7 +1232,7 @@ function QuizOnboardingStep13({onNext, onPrev, time, formatTime}) {
                             <div className='text-white mb-2.5 mr-5'>
                                 <div className='mx-16 max-w-6xl space-y-20 my-20'>
                                     {modalVisible && renderModal()}
-                                    <h1 className='text-3xl font-bold'>Ok, merci John, écoutez maintenant je suis sur
+                                    <h1 className='text-3xl font-bold'>Ok, merci {userName}, écoutez maintenant je suis sur
                                         que je peux
                                         vous accompagner...</h1>
                                     <h1 className='text-3xl font-bold'>Est-ce que vous voulez que je vous explique
