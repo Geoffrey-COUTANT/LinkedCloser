@@ -516,6 +516,7 @@ function QuizOnboardingStep7({onNext, onPrev, time, formatTime}) {
     const [chronoBackground, setChronoBackground] = useState("");
     const [chronoTextColor, setChronoTextColor] = useState("");
     const [userName, setUserName] = useState('');
+    const [inputName, setInputName] = useState('');
 
     const updateChronoBackground = (background) => {
         setChronoBackground(background);
@@ -569,6 +570,7 @@ function QuizOnboardingStep7({onNext, onPrev, time, formatTime}) {
         };
         getUser();
     }, []);
+
     return (
         <div
             className={`flex justify-items-center mr-24 z-10 ${modalVisible ? 'fixed top-0 left-0 w-full h-full bg-black/80 flex items-center justify-center pr-24' : ''}`}>
