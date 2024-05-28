@@ -571,6 +571,29 @@ function QuizOnboardingStep7({onNext, onPrev, time, formatTime}) {
         getUser();
     }, []);
 
+    const handleInputChange = (e) => {
+        setInputName(e.target.value);
+    };
+
+    const handleSaveAndNext = async () => {
+        const userId = localStorage.getItem('userId');
+        if (!userId) {
+            console.error('No user ID found in local storage');
+            return;
+        }
+        try {
+            await axios.post('http://localhost:5058/createInput', null, {
+                params: {
+                    input: inputName,
+                    userId: userId
+                }
+            });
+            console.log('Input saved successfully');
+            onNext();
+        } catch (error) {
+            console.error('Erreur lors de la sauvegarde de l\'input', error);
+        }
+    };
     return (
         <div
             className={`flex justify-items-center mr-24 z-10 ${modalVisible ? 'fixed top-0 left-0 w-full h-full bg-black/80 flex items-center justify-center pr-24' : ''}`}>
@@ -598,7 +621,7 @@ function QuizOnboardingStep7({onNext, onPrev, time, formatTime}) {
                                         ?</h1>
                                 </div>
                                 <div className='pb-6'>
-                                    <InputText/>
+                                    <InputText onChange={handleInputChange}/>
                                 </div>
                             </div>
                         </div>
@@ -614,7 +637,7 @@ function QuizOnboardingStep7({onNext, onPrev, time, formatTime}) {
                                     </button>
                                 </div>
                                 <div>
-                                    <button onClick={onNext}
+                                    <button onClick={handleSaveAndNext}
                                             className='flex bg-gray-400/80 hover:bg-gray-500 text-white font-bold py-2 px-4 rounded-full'>
                                         <img className='h-10 w-10 my-5 mr-3 ml-4' src={require('../img/play.png')}
                                              alt="logo"/>
@@ -635,6 +658,7 @@ function QuizOnboardingStep8({onNext, onPrev, time, formatTime}) {
     const [modalType, setModalType] = useState("");
     const [chronoBackground, setChronoBackground] = useState("");
     const [chronoTextColor, setChronoTextColor] = useState("");
+    const [inputName, setInputName] = useState('');
 
     const updateChronoBackground = (background) => {
         setChronoBackground(background);
@@ -672,6 +696,29 @@ function QuizOnboardingStep8({onNext, onPrev, time, formatTime}) {
                 return null;
         }
     };
+    const handleInputChange = (e) => {
+        setInputName(e.target.value);
+    };
+
+    const handleSaveAndNext = async () => {
+        const userId = localStorage.getItem('userId');
+        if (!userId) {
+            console.error('No user ID found in local storage');
+            return;
+        }
+        try {
+            await axios.post('http://localhost:5058/createInput', null, {
+                params: {
+                    input: inputName,
+                    userId: userId
+                }
+            });
+            console.log('Input saved successfully');
+            onNext();
+        } catch (error) {
+            console.error('Erreur lors de la sauvegarde de l\'input', error);
+        }
+    };
     return (
         <div
             className={`flex justify-items-center mr-24 z-10 ${modalVisible ? 'fixed top-0 left-0 w-full h-full bg-black/80 flex items-center justify-center pr-24' : ''}`}>
@@ -698,7 +745,7 @@ function QuizOnboardingStep8({onNext, onPrev, time, formatTime}) {
                                     </div>
                                 </div>
                                 <div className='pb-6'>
-                                    <InputText/>
+                                    <InputText onChange={handleInputChange}/>
                                 </div>
                             </div>
                         </div>
@@ -714,7 +761,7 @@ function QuizOnboardingStep8({onNext, onPrev, time, formatTime}) {
                                     </button>
                                 </div>
                                 <div>
-                                    <button onClick={onNext}
+                                    <button onClick={handleSaveAndNext}
                                             className='flex bg-gray-400/80 hover:bg-gray-500 text-white font-bold py-2 px-4 rounded-full'>
                                         <img className='h-10 w-10 my-5 mr-3 ml-4' src={require('../img/play.png')}
                                              alt="logo"/>
@@ -735,6 +782,7 @@ function QuizOnboardingStep9({onNext, onPrev, time, formatTime}) {
     const [modalType, setModalType] = useState("");
     const [chronoBackground, setChronoBackground] = useState("");
     const [chronoTextColor, setChronoTextColor] = useState("");
+    const [inputName, setInputName] = useState('');
 
     const updateChronoBackground = (background) => {
         setChronoBackground(background);
@@ -770,6 +818,29 @@ function QuizOnboardingStep9({onNext, onPrev, time, formatTime}) {
                 return <ModalHand closeModal={closeModal}/>;
             default:
                 return null;
+        }
+    };
+    const handleInputChange = (e) => {
+        setInputName(e.target.value);
+    };
+
+    const handleSaveAndNext = async () => {
+        const userId = localStorage.getItem('userId');
+        if (!userId) {
+            console.error('No user ID found in local storage');
+            return;
+        }
+        try {
+            await axios.post('http://localhost:5058/createInput', null, {
+                params: {
+                    input: inputName,
+                    userId: userId
+                }
+            });
+            console.log('Input saved successfully');
+            onNext();
+        } catch (error) {
+            console.error('Erreur lors de la sauvegarde de l\'input', error);
         }
     };
     return (
@@ -800,7 +871,7 @@ function QuizOnboardingStep9({onNext, onPrev, time, formatTime}) {
                                     </div>
                                 </div>
                                 <div className='mb-24 mt-32'>
-                                    <InputText />
+                                    <InputText onChange={handleInputChange}/>
                                 </div>
                             </div>
                         </div>
@@ -816,7 +887,7 @@ function QuizOnboardingStep9({onNext, onPrev, time, formatTime}) {
                                     </button>
                                 </div>
                                 <div>
-                                    <button onClick={onNext}
+                                    <button onClick={handleSaveAndNext}
                                             className='flex bg-gray-400/80 hover:bg-gray-500 text-white font-bold py-2 px-4 rounded-full'>
                                         <img className='h-10 w-10 my-5 mr-3 ml-4' src={require('../img/play.png')}
                                              alt="logo"/>
@@ -838,6 +909,7 @@ function QuizOnboardingStep10({onNext, onPrev, time, formatTime}) {
     const [chronoBackground, setChronoBackground] = useState("");
     const [chronoTextColor, setChronoTextColor] = useState("");
     const [userName, setUserName] = useState('');
+    const [inputName, setInputName] = useState('');
 
     const updateChronoBackground = (background) => {
         setChronoBackground(background);
@@ -891,6 +963,29 @@ function QuizOnboardingStep10({onNext, onPrev, time, formatTime}) {
         };
         getUser();
     }, []);
+    const handleInputChange = (e) => {
+        setInputName(e.target.value);
+    };
+
+    const handleSaveAndNext = async () => {
+        const userId = localStorage.getItem('userId');
+        if (!userId) {
+            console.error('No user ID found in local storage');
+            return;
+        }
+        try {
+            await axios.post('http://localhost:5058/createInput', null, {
+                params: {
+                    input: inputName,
+                    userId: userId
+                }
+            });
+            console.log('Input saved successfully');
+            onNext();
+        } catch (error) {
+            console.error('Erreur lors de la sauvegarde de l\'input', error);
+        }
+    };
     return (
         <div
             className={`flex justify-items-center mr-24 z-10 ${modalVisible ? 'fixed top-0 left-0 w-full h-full bg-black/80 flex items-center justify-center pr-24' : ''}`}>
@@ -918,7 +1013,7 @@ function QuizOnboardingStep10({onNext, onPrev, time, formatTime}) {
                                     <h1 className='text-2xl italic'>Est-ce que vous avez des objecifs plus “émotionnel” ?</h1>
                                     <h1 className='text-2xl italic'>Qu’est-ce que cela changerait pour vous parvenez à l’atteindre ?</h1>
                                 </div>
-                                <InputText />
+                                <InputText onChange={handleInputChange}/>
                             </div>
                         </div>
                         <div className='mt-10 mb-8 grid grid-cols-6 gap-2'>
@@ -933,7 +1028,7 @@ function QuizOnboardingStep10({onNext, onPrev, time, formatTime}) {
                                     </button>
                                 </div>
                                 <div>
-                                    <button onClick={onNext}
+                                    <button onClick={handleSaveAndNext}
                                             className='flex bg-gray-400/80 hover:bg-gray-500 text-white font-bold py-2 px-4 rounded-full'>
                                         <img className='h-10 w-10 my-5 mr-3 ml-4' src={require('../img/play.png')}
                                              alt="logo"/>
@@ -955,6 +1050,7 @@ function QuizOnboardingStep11({onNext, onPrev, time, formatTime}) {
     const [chronoBackground, setChronoBackground] = useState("");
     const [chronoTextColor, setChronoTextColor] = useState("");
     const [userName, setUserName] = useState('');
+    const [inputName, setInputName] = useState('');
 
     const updateChronoBackground = (background) => {
         setChronoBackground(background);
@@ -1008,6 +1104,29 @@ function QuizOnboardingStep11({onNext, onPrev, time, formatTime}) {
         };
         getUser();
     }, []);
+    const handleInputChange = (e) => {
+        setInputName(e.target.value);
+    };
+
+    const handleSaveAndNext = async () => {
+        const userId = localStorage.getItem('userId');
+        if (!userId) {
+            console.error('No user ID found in local storage');
+            return;
+        }
+        try {
+            await axios.post('http://localhost:5058/createInput', null, {
+                params: {
+                    input: inputName,
+                    userId: userId
+                }
+            });
+            console.log('Input saved successfully');
+            onNext();
+        } catch (error) {
+            console.error('Erreur lors de la sauvegarde de l\'input', error);
+        }
+    };
     return (
         <div
             className={`flex justify-items-center mr-24 z-10 ${modalVisible ? 'fixed top-0 left-0 w-full h-full bg-black/80 flex items-center justify-center pr-24' : ''}`}>
@@ -1030,7 +1149,7 @@ function QuizOnboardingStep11({onNext, onPrev, time, formatTime}) {
                                         aujourd’hui ?</h1>
                                 </div>
                                 <div className='pb-14'>
-                                    <InputText />
+                                    <InputText onChange={handleInputChange}/>
                                 </div>
                             </div>
                         </div>
@@ -1046,7 +1165,7 @@ function QuizOnboardingStep11({onNext, onPrev, time, formatTime}) {
                                     </button>
                                 </div>
                                 <div>
-                                    <button onClick={onNext}
+                                    <button onClick={handleSaveAndNext}
                                             className='flex bg-gray-400/80 hover:bg-gray-500 text-white font-bold py-2 px-4 rounded-full'>
                                         <img className='h-10 w-10 my-5 mr-3 ml-4' src={require('../img/play.png')}
                                              alt="logo"/>
@@ -1067,6 +1186,7 @@ function QuizOnboardingStep12({onNext, onPrev, time, formatTime}) {
     const [modalType, setModalType] = useState("");
     const [chronoBackground, setChronoBackground] = useState("");
     const [chronoTextColor, setChronoTextColor] = useState("");
+    const [inputName, setInputName] = useState('');
 
     const updateChronoBackground = (background) => {
         setChronoBackground(background);
@@ -1102,6 +1222,29 @@ function QuizOnboardingStep12({onNext, onPrev, time, formatTime}) {
                 return <ModalHand closeModal={closeModal}/>;
             default:
                 return null;
+        }
+    };
+    const handleInputChange = (e) => {
+        setInputName(e.target.value);
+    };
+
+    const handleSaveAndNext = async () => {
+        const userId = localStorage.getItem('userId');
+        if (!userId) {
+            console.error('No user ID found in local storage');
+            return;
+        }
+        try {
+            await axios.post('http://localhost:5058/createInput', null, {
+                params: {
+                    input: inputName,
+                    userId: userId
+                }
+            });
+            console.log('Input saved successfully');
+            onNext();
+        } catch (error) {
+            console.error('Erreur lors de la sauvegarde de l\'input', error);
         }
     };
     return (
@@ -1126,7 +1269,7 @@ function QuizOnboardingStep12({onNext, onPrev, time, formatTime}) {
                                     </div>
                                 </div>
                                 <div className='pb-14'>
-                                    <InputText />
+                                    <InputText onChange={handleInputChange}/>
                                 </div>
                             </div>
                         </div>
@@ -1142,7 +1285,7 @@ function QuizOnboardingStep12({onNext, onPrev, time, formatTime}) {
                                     </button>
                                 </div>
                                 <div>
-                                    <button onClick={onNext}
+                                    <button onClick={handleSaveAndNext}
                                             className='flex bg-gray-400/80 hover:bg-gray-500 text-white font-bold py-2 px-4 rounded-full'>
                                         <img className='h-10 w-10 my-5 mr-3 ml-4' src={require('../img/play.png')}
                                              alt="logo"/>
@@ -1164,6 +1307,7 @@ function QuizOnboardingStep13({onNext, onPrev, time, formatTime}) {
     const [chronoBackground, setChronoBackground] = useState("");
     const [chronoTextColor, setChronoTextColor] = useState("");
     const [userName, setUserName] = useState('');
+    const [inputName, setInputName] = useState('');
 
     const updateChronoBackground = (background) => {
         setChronoBackground(background);
@@ -1217,6 +1361,29 @@ function QuizOnboardingStep13({onNext, onPrev, time, formatTime}) {
         };
         getUser();
     }, []);
+    const handleInputChange = (e) => {
+        setInputName(e.target.value);
+    };
+
+    const handleSaveAndNext = async () => {
+        const userId = localStorage.getItem('userId');
+        if (!userId) {
+            console.error('No user ID found in local storage');
+            return;
+        }
+        try {
+            await axios.post('http://localhost:5058/createInput', null, {
+                params: {
+                    input: inputName,
+                    userId: userId
+                }
+            });
+            console.log('Input saved successfully');
+            onNext();
+        } catch (error) {
+            console.error('Erreur lors de la sauvegarde de l\'input', error);
+        }
+    };
     return (
         <div
             className={`flex justify-items-center mr-24 z-10 ${modalVisible ? 'fixed top-0 left-0 w-full h-full bg-black/80 flex items-center justify-center pr-24' : ''}`}>
@@ -1242,7 +1409,7 @@ function QuizOnboardingStep13({onNext, onPrev, time, formatTime}) {
                                         accompagnons nos clients ?</h1>
                                 </div>
                                 <div className='pb-6'>
-                                    <InputText/>
+                                    <InputText onChange={handleInputChange}/>
                                 </div>
                             </div>
                         </div>
@@ -1258,7 +1425,7 @@ function QuizOnboardingStep13({onNext, onPrev, time, formatTime}) {
                                     </button>
                                 </div>
                                 <div>
-                                    <button onClick={onNext}
+                                    <button onClick={handleSaveAndNext}
                                             className='flex bg-gray-400/80 hover:bg-gray-500 text-white font-bold py-2 px-4 rounded-full'>
                                         <img className='h-10 w-10 my-5 mr-3 ml-4' src={require('../img/play.png')}
                                              alt="logo"/>
@@ -1373,6 +1540,7 @@ function QuizOnboardingStep15({onNext, onPrev, time, formatTime}) {
     const [modalType, setModalType] = useState("");
     const [chronoBackground, setChronoBackground] = useState("");
     const [chronoTextColor, setChronoTextColor] = useState("");
+    const [inputName, setInputName] = useState('');
 
     const updateChronoBackground = (background) => {
         setChronoBackground(background);
@@ -1410,6 +1578,28 @@ function QuizOnboardingStep15({onNext, onPrev, time, formatTime}) {
                 return null;
         }
     };
+    const handleInputChange = (e) => {
+        setInputName(e.target.value);
+    };
+
+    const handleSaveAndNext = async () => {
+        const userId = localStorage.getItem('userId');
+        if (!userId) {
+            console.error('No user ID found in local storage');
+            return;
+        }
+        try {
+            await axios.post('http://localhost:5058/createInput', null, {
+                params: {
+                    input: inputName,
+                    userId: userId
+                }
+            });
+            console.log('Input saved successfully');
+        } catch (error) {
+            console.error('Erreur lors de la sauvegarde de l\'input', error);
+        }
+    };
     return (
         <div
             className={`flex justify-items-center mr-24 z-10 ${modalVisible ? 'fixed top-0 left-0 w-full h-full bg-black/80 flex items-center justify-center pr-24' : ''}`}>
@@ -1435,7 +1625,7 @@ function QuizOnboardingStep15({onNext, onPrev, time, formatTime}) {
                                     </div>
                                 </div>
                                 <div className='pb-24'>
-                                    <InputText/>
+                                    <InputText onChange={handleInputChange}/>
                                 </div>
                             </div>
                         </div>
@@ -1452,6 +1642,7 @@ function QuizOnboardingStep15({onNext, onPrev, time, formatTime}) {
                                 </div>
                                 <div>
                                     <div
+                                        onClick={handleSaveAndNext}
                                         className='flex bg-gray-700/80 text-white font-bold py-2 px-4 rounded-full'>
                                         <img className='h-10 w-10 my-5 mr-3 ml-4' src={require('../img/play.png')}
                                              alt="logo"/>
