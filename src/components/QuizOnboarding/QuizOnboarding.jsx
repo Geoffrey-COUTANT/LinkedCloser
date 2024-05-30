@@ -254,6 +254,32 @@ function QuizOnboardingStep4({handleHabitualClick, time, formatTime, onNext, onP
                 return null;
         }
     };
+    const choiceButtonClick = async (choice) => {
+        try {
+            const response = await fetch('http://localhost:5058/createInput', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    userId: localStorage.getItem('userId'),
+                    choice: choice,
+                }),
+            });
+            if (!response.ok) {
+                throw new Error('Failed to save choice');
+            }
+            const data = await response.json();
+            console.log('Success:', data);
+            if (choice === 'habitual') {
+                handleHabitualClick();
+            } else {
+                onNext();
+            }
+        } catch (error) {
+            console.error('Error:', error);
+        }
+    };
     return (
         <div className={`flex justify-items-center mr-24 z-10 ${modalVisible ? 'fixed top-0 left-0 w-full h-full bg-black/80 flex items-center justify-center pr-24' : ''}`}>
             <div className={`flex justify-center mx-16 z-50 ${modalVisible ? 'pr-2' : ''}`}>
@@ -273,13 +299,13 @@ function QuizOnboardingStep4({handleHabitualClick, time, formatTime, onNext, onP
                                         stratégiques
                                         ou c’est la 1ère fois ? </h1>
                                     <div className='flex flex-grow justify-center items-center mt-16 space-x-28'>
-                                        <button onClick={onNext}
+                                        <button onClick={() => choiceButtonClick('firstTime')}
                                                 className='flex bg-gray-400/80 hover:bg-gray-500 text-white font-bold py-4 px-7 rounded-full text-lg'>C’EST
                                             LA 1ÈRE FOIS<img className='h-5 w-5 ml-3 mt-0.5'
                                                              src={require('../img/play.png')}
                                                              alt="logo"/>
                                         </button>
-                                        <button onClick={handleHabitualClick}
+                                        <button onClick={() => choiceButtonClick('habitual')}
                                                 className='flex bg-gray-400/80 hover:bg-gray-500 text-white font-bold py-4 px-7 rounded-full text-lg'>IL A DÉJÀ L’HABITUDE
                                             <img className='h-5 w-5 ml-3 mt-0.5'
                                                              src={require('../img/play.png')}
@@ -583,10 +609,10 @@ function QuizOnboardingStep7({onNext, onPrev, time, formatTime}) {
         }
         try {
             await axios.post('http://localhost:5058/createInput', null, {
-                params: {
+                body: JSON.stringify({
                     input: inputName,
-                    userId: userId
-                }
+                    userId: localStorage.getItem('userId'),
+                }),
             });
             console.log('Input saved successfully');
             onNext();
