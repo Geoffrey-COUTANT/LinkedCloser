@@ -271,7 +271,7 @@ function QuizOnboardingStep4({handleHabitualClick, time, formatTime, onNext, onP
             }
             const data = await response.json();
             console.log('Success:', data);
-            if (choice === 'habitual') {
+            if (choice === 'Il a l\'habitude de faire ce genre d\'appel') {
                 handleHabitualClick();
             } else {
                 onNext();
@@ -299,13 +299,13 @@ function QuizOnboardingStep4({handleHabitualClick, time, formatTime, onNext, onP
                                         stratégiques
                                         ou c’est la 1ère fois ? </h1>
                                     <div className='flex flex-grow justify-center items-center mt-16 space-x-28'>
-                                        <button onClick={() => choiceButtonClick('firstTime')}
+                                        <button onClick={() => choiceButtonClick('C\'est la première fois qu\'il fait ce genre d\'appel')}
                                                 className='flex bg-gray-400/80 hover:bg-gray-500 text-white font-bold py-4 px-7 rounded-full text-lg'>C’EST
                                             LA 1ÈRE FOIS<img className='h-5 w-5 ml-3 mt-0.5'
                                                              src={require('../img/play.png')}
                                                              alt="logo"/>
                                         </button>
-                                        <button onClick={() => choiceButtonClick('habitual')}
+                                        <button onClick={() => choiceButtonClick('Il a l\'habitude de faire ce genre d\'appel')}
                                                 className='flex bg-gray-400/80 hover:bg-gray-500 text-white font-bold py-4 px-7 rounded-full text-lg'>IL A DÉJÀ L’HABITUDE
                                             <img className='h-5 w-5 ml-3 mt-0.5'
                                                              src={require('../img/play.png')}
@@ -608,11 +608,13 @@ function QuizOnboardingStep7({onNext, onPrev, time, formatTime}) {
             return;
         }
         try {
-            await axios.post('http://localhost:5058/createInput', null, {
-                body: JSON.stringify({
+            await axios.post('http://localhost:5058/createInput', {
                     input: inputName,
-                    userId: localStorage.getItem('userId'),
-                }),
+                    userId: userId,
+                    questionId: 0,
+                    headers:{
+                    'Content-Type':'application/json'
+                }
             });
             console.log('Input saved successfully');
             onNext();
@@ -733,10 +735,12 @@ function QuizOnboardingStep8({onNext, onPrev, time, formatTime}) {
             return;
         }
         try {
-            await axios.post('http://localhost:5058/createInput', null, {
-                params: {
-                    input: inputName,
-                    userId: userId
+            await axios.post('http://localhost:5058/createInput', {
+                input: inputName,
+                userId: userId,
+                questionId: 1,
+                headers:{
+                    'Content-Type':'application/json'
                 }
             });
             console.log('Input saved successfully');
@@ -857,10 +861,12 @@ function QuizOnboardingStep9({onNext, onPrev, time, formatTime}) {
             return;
         }
         try {
-            await axios.post('http://localhost:5058/createInput', null, {
-                params: {
-                    input: inputName,
-                    userId: userId
+            await axios.post('http://localhost:5058/createInput', {
+                input: inputName,
+                userId: userId,
+                questionId: 2,
+                headers:{
+                    'Content-Type':'application/json'
                 }
             });
             console.log('Input saved successfully');
@@ -1000,10 +1006,12 @@ function QuizOnboardingStep10({onNext, onPrev, time, formatTime}) {
             return;
         }
         try {
-            await axios.post('http://localhost:5058/createInput', null, {
-                params: {
-                    input: inputName,
-                    userId: userId
+            await axios.post('http://localhost:5058/createInput', {
+                input: inputName,
+                userId: userId,
+                questionId: 3,
+                headers:{
+                    'Content-Type':'application/json'
                 }
             });
             console.log('Input saved successfully');
@@ -1141,10 +1149,12 @@ function QuizOnboardingStep11({onNext, onPrev, time, formatTime}) {
             return;
         }
         try {
-            await axios.post('http://localhost:5058/createInput', null, {
-                params: {
-                    input: inputName,
-                    userId: userId
+            await axios.post('http://localhost:5058/createInput', {
+                input: inputName,
+                userId: userId,
+                questionId: 4,
+                headers:{
+                    'Content-Type':'application/json'
                 }
             });
             console.log('Input saved successfully');
@@ -1261,10 +1271,12 @@ function QuizOnboardingStep12({onNext, onPrev, time, formatTime}) {
             return;
         }
         try {
-            await axios.post('http://localhost:5058/createInput', null, {
-                params: {
-                    input: inputName,
-                    userId: userId
+            await axios.post('http://localhost:5058/createInput', {
+                input: inputName,
+                userId: userId,
+                questionId: 5,
+                headers:{
+                    'Content-Type':'application/json'
                 }
             });
             console.log('Input saved successfully');
@@ -1387,6 +1399,7 @@ function QuizOnboardingStep13({onNext, onPrev, time, formatTime}) {
         };
         getUser();
     }, []);
+
     const handleInputChange = (e) => {
         setInputName(e.target.value);
     };
@@ -1398,10 +1411,12 @@ function QuizOnboardingStep13({onNext, onPrev, time, formatTime}) {
             return;
         }
         try {
-            await axios.post('http://localhost:5058/createInput', null, {
-                params: {
-                    input: inputName,
-                    userId: userId
+            await axios.post('http://localhost:5058/createInput', {
+                input: inputName,
+                userId: userId,
+                questionId: 6,
+                headers:{
+                    'Content-Type':'application/json'
                 }
             });
             console.log('Input saved successfully');
@@ -1615,10 +1630,12 @@ function QuizOnboardingStep15({onNext, onPrev, time, formatTime}) {
             return;
         }
         try {
-            await axios.post('http://localhost:5058/createInput', null, {
-                params: {
-                    input: inputName,
-                    userId: userId
+            await axios.post('http://localhost:5058/createInput', {
+                input: inputName,
+                userId: userId,
+                questionId: 7,
+                headers:{
+                    'Content-Type':'application/json'
                 }
             });
             console.log('Input saved successfully');
