@@ -11,6 +11,7 @@ import secretEmoji from "../img/intonation-emoji/secret.png";
 import obviousEmoji from "../img/intonation-emoji/obvious.png";
 import InputText from "../InputText/InputText";
 import axios from "axios";
+import ModalNotepad from "../Modal/ModalNotepad";
 
 function QuizOnboardingStep1({onNext, onPrev}) {
     const buttonRef = useRef(null);
@@ -1615,6 +1616,8 @@ function QuizOnboardingStep15({onNext, onPrev, time, formatTime}) {
                 return <ModalDollar closeModal={closeModal}/>;
             case "Hand":
                 return <ModalHand closeModal={closeModal}/>;
+            case "Notepad":
+                return <ModalNotepad closeModal={closeModal}/>;
             default:
                 return null;
         }
@@ -1653,7 +1656,8 @@ function QuizOnboardingStep15({onNext, onPrev, time, formatTime}) {
                 <div className='bg-gray-400/30 rounded-3xl border-4 border-gray-500/25 backdrop-blur-sm pt-14'>
                     <div className='mb-2.5 mx-10'>
                         <div className='flex flex-grow'>
-                            <h1 className='text-4xl ml-2 text-white font-bold'>PARTIE 10 : PRÉSENTATION DE VOTRE OFFRE : (2 / 2)</h1>
+                            <h1 className='text-4xl ml-2 text-white font-bold'>PARTIE 10 : PRÉSENTATION DE VOTRE OFFRE :
+                                (2 / 2)</h1>
                             <Chronometre chronoBackground={chronoBackground} chronoTextColor={chronoTextColor} formatTime={formatTime} time={time}/>
                         </div>
                         <div className='flex flex-col bg-gray-800/50 mt-16 rounded-2xl'>
