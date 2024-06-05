@@ -177,7 +177,7 @@ function QuizOnboardingStep3({userId, onNext, onPrev, time, formatTime}) {
     return (
         <div className={`flex justify-items-center mr-24 z-10 ${modalVisible ? 'fixed top-0 left-0 w-full h-full bg-black/80 flex items-center justify-center pr-24' : ''}`}>
             <div className={`flex justify-center mx-16 z-50 ${modalVisible ? 'pr-2' : ''}`}>
-                <PanicButton openModal={openModal} buttonActive={buttonActive}/> {/* augmenter taille horloge avec du css */}
+                <PanicButton openModal={openModal} buttonActive={buttonActive}/>
             </div>
             <div className='flex justify-items-center'>
                 <div className={`bg-gray-400/30 rounded-3xl ${modalVisible ? '' : 'border-4'} border-gray-500/25 backdrop-blur-sm pt-14`}>
@@ -544,6 +544,7 @@ function QuizOnboardingStep7({onNext, onPrev, time, formatTime}) {
     const [chronoTextColor, setChronoTextColor] = useState("");
     const [userName, setUserName] = useState('');
     const [inputName, setInputName] = useState('');
+    const [currentQuestionId, setCurrentQuestionId] = useState(1);
 
     const updateChronoBackground = (background) => {
         setChronoBackground(background);
@@ -610,11 +611,12 @@ function QuizOnboardingStep7({onNext, onPrev, time, formatTime}) {
         }
         try {
             await axios.post('http://localhost:5058/createInput', {
-                    input: inputName,
-                    userId: userId,
-                    questionId: 0,
-                    headers:{
-                    'Content-Type':'application/json'
+                input: inputName,
+                userId: parseInt(userId),
+                questionId: currentQuestionId,
+            }, {
+                headers: {
+                    'Content-Type': 'application/json'
                 }
             });
             console.log('Input saved successfully');
@@ -688,6 +690,7 @@ function QuizOnboardingStep8({onNext, onPrev, time, formatTime}) {
     const [chronoBackground, setChronoBackground] = useState("");
     const [chronoTextColor, setChronoTextColor] = useState("");
     const [inputName, setInputName] = useState('');
+    const [currentQuestionId, setCurrentQuestionId] = useState(2);
 
     const updateChronoBackground = (background) => {
         setChronoBackground(background);
@@ -725,6 +728,7 @@ function QuizOnboardingStep8({onNext, onPrev, time, formatTime}) {
                 return null;
         }
     };
+
     const handleInputChange = (e) => {
         setInputName(e.target.value);
     };
@@ -738,10 +742,11 @@ function QuizOnboardingStep8({onNext, onPrev, time, formatTime}) {
         try {
             await axios.post('http://localhost:5058/createInput', {
                 input: inputName,
-                userId: userId,
-                questionId: 1,
-                headers:{
-                    'Content-Type':'application/json'
+                userId: parseInt(userId),
+                questionId: currentQuestionId,
+            }, {
+                headers: {
+                    'Content-Type': 'application/json'
                 }
             });
             console.log('Input saved successfully');
@@ -814,6 +819,7 @@ function QuizOnboardingStep9({onNext, onPrev, time, formatTime}) {
     const [chronoBackground, setChronoBackground] = useState("");
     const [chronoTextColor, setChronoTextColor] = useState("");
     const [inputName, setInputName] = useState('');
+    const [currentQuestionId, setCurrentQuestionId] = useState(3);
 
     const updateChronoBackground = (background) => {
         setChronoBackground(background);
@@ -851,6 +857,7 @@ function QuizOnboardingStep9({onNext, onPrev, time, formatTime}) {
                 return null;
         }
     };
+
     const handleInputChange = (e) => {
         setInputName(e.target.value);
     };
@@ -864,10 +871,11 @@ function QuizOnboardingStep9({onNext, onPrev, time, formatTime}) {
         try {
             await axios.post('http://localhost:5058/createInput', {
                 input: inputName,
-                userId: userId,
-                questionId: 2,
-                headers:{
-                    'Content-Type':'application/json'
+                userId: parseInt(userId),
+                questionId: currentQuestionId,
+            }, {
+                headers: {
+                    'Content-Type': 'application/json'
                 }
             });
             console.log('Input saved successfully');
@@ -943,6 +951,7 @@ function QuizOnboardingStep10({onNext, onPrev, time, formatTime}) {
     const [chronoTextColor, setChronoTextColor] = useState("");
     const [userName, setUserName] = useState('');
     const [inputName, setInputName] = useState('');
+    const [currentQuestionId, setCurrentQuestionId] = useState(4);
 
     const updateChronoBackground = (background) => {
         setChronoBackground(background);
@@ -996,6 +1005,7 @@ function QuizOnboardingStep10({onNext, onPrev, time, formatTime}) {
         };
         getUser();
     }, []);
+
     const handleInputChange = (e) => {
         setInputName(e.target.value);
     };
@@ -1009,10 +1019,11 @@ function QuizOnboardingStep10({onNext, onPrev, time, formatTime}) {
         try {
             await axios.post('http://localhost:5058/createInput', {
                 input: inputName,
-                userId: userId,
-                questionId: 3,
-                headers:{
-                    'Content-Type':'application/json'
+                userId: parseInt(userId),
+                questionId: currentQuestionId,
+            }, {
+                headers: {
+                    'Content-Type': 'application/json'
                 }
             });
             console.log('Input saved successfully');
@@ -1086,6 +1097,7 @@ function QuizOnboardingStep11({onNext, onPrev, time, formatTime}) {
     const [chronoTextColor, setChronoTextColor] = useState("");
     const [userName, setUserName] = useState('');
     const [inputName, setInputName] = useState('');
+    const [currentQuestionId, setCurrentQuestionId] = useState(5);
 
     const updateChronoBackground = (background) => {
         setChronoBackground(background);
@@ -1139,6 +1151,7 @@ function QuizOnboardingStep11({onNext, onPrev, time, formatTime}) {
         };
         getUser();
     }, []);
+
     const handleInputChange = (e) => {
         setInputName(e.target.value);
     };
@@ -1152,10 +1165,11 @@ function QuizOnboardingStep11({onNext, onPrev, time, formatTime}) {
         try {
             await axios.post('http://localhost:5058/createInput', {
                 input: inputName,
-                userId: userId,
-                questionId: 4,
-                headers:{
-                    'Content-Type':'application/json'
+                userId: parseInt(userId),
+                questionId: currentQuestionId,
+            }, {
+                headers: {
+                    'Content-Type': 'application/json'
                 }
             });
             console.log('Input saved successfully');
@@ -1224,6 +1238,7 @@ function QuizOnboardingStep12({onNext, onPrev, time, formatTime}) {
     const [chronoBackground, setChronoBackground] = useState("");
     const [chronoTextColor, setChronoTextColor] = useState("");
     const [inputName, setInputName] = useState('');
+    const [currentQuestionId, setCurrentQuestionId] = useState(6);
 
     const updateChronoBackground = (background) => {
         setChronoBackground(background);
@@ -1274,10 +1289,11 @@ function QuizOnboardingStep12({onNext, onPrev, time, formatTime}) {
         try {
             await axios.post('http://localhost:5058/createInput', {
                 input: inputName,
-                userId: userId,
-                questionId: 5,
-                headers:{
-                    'Content-Type':'application/json'
+                userId: parseInt(userId),
+                questionId: currentQuestionId,
+            }, {
+                headers: {
+                    'Content-Type': 'application/json'
                 }
             });
             console.log('Input saved successfully');
@@ -1347,6 +1363,7 @@ function QuizOnboardingStep13({onNext, onPrev, time, formatTime}) {
     const [chronoTextColor, setChronoTextColor] = useState("");
     const [userName, setUserName] = useState('');
     const [inputName, setInputName] = useState('');
+    const [currentQuestionId, setCurrentQuestionId] = useState(7);
 
     const updateChronoBackground = (background) => {
         setChronoBackground(background);
@@ -1414,10 +1431,11 @@ function QuizOnboardingStep13({onNext, onPrev, time, formatTime}) {
         try {
             await axios.post('http://localhost:5058/createInput', {
                 input: inputName,
-                userId: userId,
-                questionId: 6,
-                headers:{
-                    'Content-Type':'application/json'
+                userId: parseInt(userId),
+                questionId: currentQuestionId,
+            }, {
+                headers: {
+                    'Content-Type': 'application/json'
                 }
             });
             console.log('Input saved successfully');
@@ -1583,6 +1601,7 @@ function QuizOnboardingStep15({onNext, onPrev, time, formatTime}) {
     const [chronoBackground, setChronoBackground] = useState("");
     const [chronoTextColor, setChronoTextColor] = useState("");
     const [inputName, setInputName] = useState('');
+    const [currentQuestionId, setCurrentQuestionId] = useState(8);
 
     const updateChronoBackground = (background) => {
         setChronoBackground(background);
@@ -1622,6 +1641,7 @@ function QuizOnboardingStep15({onNext, onPrev, time, formatTime}) {
                 return null;
         }
     };
+
     const handleInputChange = (e) => {
         setInputName(e.target.value);
     };
@@ -1635,10 +1655,11 @@ function QuizOnboardingStep15({onNext, onPrev, time, formatTime}) {
         try {
             await axios.post('http://localhost:5058/createInput', {
                 input: inputName,
-                userId: userId,
-                questionId: 7,
-                headers:{
-                    'Content-Type':'application/json'
+                userId: parseInt(userId),
+                questionId: currentQuestionId,
+            }, {
+                headers: {
+                    'Content-Type': 'application/json'
                 }
             });
             console.log('Input saved successfully');

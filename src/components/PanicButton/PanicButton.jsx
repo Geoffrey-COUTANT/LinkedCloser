@@ -6,7 +6,7 @@ import PanicButtonNotepad from "./PanicButtonNotepad";
 
 function PanicButton({ openModal, buttonActive, activeType }) {
     return (
-    <div className='flex items-center justify-center bg-gray-400/30 rounded-3xl border-4 border-gray-500/25 backdrop-blur-sm py-10 px-3 w-32 my-48'>
+    <div className='flex items-center justify-center bg-gray-400/30 rounded-3xl border-4 border-gray-500/25 backdrop-blur-sm py-10 px-3 w-32 my-36'>
         <div className="absolute top-20 left-0 right-0 bottom-20 flex justify-center items-center">
             <div className="h-96 bg-white w-10"></div>
         </div>
