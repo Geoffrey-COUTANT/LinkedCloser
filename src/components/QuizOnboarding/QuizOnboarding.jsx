@@ -153,6 +153,8 @@ function QuizOnboardingStep3({userId, onNext, onPrev, time, formatTime}) {
                 return <ModalDollar closeModal={closeModal}/>;
             case "Hand":
                 return <ModalHand closeModal={closeModal}/>;
+            case "Notepad":
+                return <ModalNotepad closeModal={closeModal}/>;
             default:
                 return null;
         }
@@ -218,6 +220,7 @@ function QuizOnboardingStep4({handleHabitualClick, time, formatTime, onNext, onP
     const [modalType, setModalType] = useState("");
     const [chronoBackground, setChronoBackground] = useState("");
     const [chronoTextColor, setChronoTextColor] = useState("");
+    const [currentQuestionId, setCurrentQuestionId] = useState(0);
 
     const updateChronoBackground = (background) => {
         setChronoBackground(background);
@@ -251,6 +254,8 @@ function QuizOnboardingStep4({handleHabitualClick, time, formatTime, onNext, onP
                 return <ModalDollar closeModal={closeModal}/>;
             case "Hand":
                 return <ModalHand closeModal={closeModal}/>;
+            case "Notepad":
+                return <ModalNotepad closeModal={closeModal}/>;
             default:
                 return null;
         }
@@ -265,6 +270,7 @@ function QuizOnboardingStep4({handleHabitualClick, time, formatTime, onNext, onP
                 body: JSON.stringify({
                     userId: localStorage.getItem('userId'),
                     choice: choice,
+                    questionId: currentQuestionId,
                 }),
             });
             if (!response.ok) {
@@ -382,6 +388,8 @@ function QuizOnboardingStep5({onNext, onPrev, time, formatTime}) {
                 return <ModalDollar closeModal={closeModal}/>;
             case "Hand":
                 return <ModalHand closeModal={closeModal}/>;
+            case "Notepad":
+                return <ModalNotepad closeModal={closeModal}/>;
             default:
                 return null;
         }
@@ -478,6 +486,8 @@ function QuizOnboardingStep6({onNext, onPrev, handleHabitualClickReturn, time, f
                 return <ModalDollar closeModal={closeModal}/>;
             case "Hand":
                 return <ModalHand closeModal={closeModal}/>;
+            case "Notepad":
+                return <ModalNotepad closeModal={closeModal}/>;
             default:
                 return null;
         }
@@ -578,6 +588,8 @@ function QuizOnboardingStep7({onNext, onPrev, time, formatTime}) {
                 return <ModalDollar closeModal={closeModal}/>;
             case "Hand":
                 return <ModalHand closeModal={closeModal}/>;
+            case "Notepad":
+                return <ModalNotepad closeModal={closeModal}/>;
             default:
                 return null;
         }
@@ -724,6 +736,8 @@ function QuizOnboardingStep8({onNext, onPrev, time, formatTime}) {
                 return <ModalDollar closeModal={closeModal}/>;
             case "Hand":
                 return <ModalHand closeModal={closeModal}/>;
+            case "Notepad":
+                return <ModalNotepad closeModal={closeModal}/>;
             default:
                 return null;
         }
@@ -853,6 +867,8 @@ function QuizOnboardingStep9({onNext, onPrev, time, formatTime}) {
                 return <ModalDollar closeModal={closeModal}/>;
             case "Hand":
                 return <ModalHand closeModal={closeModal}/>;
+            case "Notepad":
+                return <ModalNotepad closeModal={closeModal}/>;
             default:
                 return null;
         }
@@ -985,6 +1001,8 @@ function QuizOnboardingStep10({onNext, onPrev, time, formatTime}) {
                 return <ModalDollar closeModal={closeModal}/>;
             case "Hand":
                 return <ModalHand closeModal={closeModal}/>;
+            case "Notepad":
+                return <ModalNotepad closeModal={closeModal}/>;
             default:
                 return null;
         }
@@ -1131,6 +1149,8 @@ function QuizOnboardingStep11({onNext, onPrev, time, formatTime}) {
                 return <ModalDollar closeModal={closeModal}/>;
             case "Hand":
                 return <ModalHand closeModal={closeModal}/>;
+            case "Notepad":
+                return <ModalNotepad closeModal={closeModal}/>;
             default:
                 return null;
         }
@@ -1272,6 +1292,8 @@ function QuizOnboardingStep12({onNext, onPrev, time, formatTime}) {
                 return <ModalDollar closeModal={closeModal}/>;
             case "Hand":
                 return <ModalHand closeModal={closeModal}/>;
+            case "Notepad":
+                return <ModalNotepad closeModal={closeModal}/>;
             default:
                 return null;
         }
@@ -1397,6 +1419,8 @@ function QuizOnboardingStep13({onNext, onPrev, time, formatTime}) {
                 return <ModalDollar closeModal={closeModal}/>;
             case "Hand":
                 return <ModalHand closeModal={closeModal}/>;
+            case "Notepad":
+                return <ModalNotepad closeModal={closeModal}/>;
             default:
                 return null;
         }
@@ -1539,6 +1563,8 @@ function QuizOnboardingStep14({onNext, onPrev, time, formatTime}) {
                 return <ModalDollar closeModal={closeModal}/>;
             case "Hand":
                 return <ModalHand closeModal={closeModal}/>;
+            case "Notepad":
+                return <ModalNotepad closeModal={closeModal}/>;
             default:
                 return null;
         }
