@@ -25,12 +25,12 @@ function ModalNotepad({ closeModal }) {
                         <h1 className='text-3xl text-center font-bold'>Suivi de vos questions réponses</h1>
                         {(
                             <div className='mt-9 bg-gray-800/30 p-6 rounded-2xl'>
-                                <h1 className='text-2xl font-bold'>Réponses:</h1>
+                                <h1 className='text-2xl mb-2 font-bold'>Réponses:</h1>
                                 <ul>
                                     {inputs
                                         .sort((a, b) => a.id - b.id)
                                         .map((input, index ) => (
-                                        <li className='mt-2 text-xl' key={input.id}>- {input.input ?? input.choice}</li>
+                                        <li className='mt-1' key={input.id}>- {input.input ?? input.choice}</li>
                                     ))}
                                 </ul>
                             </div>

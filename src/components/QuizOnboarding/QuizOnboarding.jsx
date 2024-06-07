@@ -1689,6 +1689,7 @@ function QuizOnboardingStep15({onNext, onPrev, time, formatTime}) {
                 }
             });
             console.log('Input saved successfully');
+            onNext();
         } catch (error) {
             console.error('Erreur lors de la sauvegarde de l\'input', error);
         }
@@ -1735,12 +1736,533 @@ function QuizOnboardingStep15({onNext, onPrev, time, formatTime}) {
                                     </button>
                                 </div>
                                 <div>
-                                    <div
-                                        onClick={handleSaveAndNext}
-                                        className='flex bg-gray-700/80 text-white font-bold py-2 px-4 rounded-full'>
+                                    <button onClick={handleSaveAndNext}
+                                            className='flex bg-gray-400/80 hover:bg-gray-500 text-white font-bold py-2 px-4 rounded-full'>
                                         <img className='h-10 w-10 my-5 mr-3 ml-4' src={require('../img/play.png')}
                                              alt="logo"/>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    )
+}
+
+function QuizOnboardingStep16({handleHabitualClick, time, formatTime, onNext, onPrev}) {
+    const [modalVisible, setModalVisible] = useState(false);
+    const [buttonActive, setButtonActive] = useState("");
+    const [modalType, setModalType] = useState("");
+    const [chronoBackground, setChronoBackground] = useState("");
+    const [chronoTextColor, setChronoTextColor] = useState("");
+    const [currentQuestionId, setCurrentQuestionId] = useState(9);
+
+    const updateChronoBackground = (background) => {
+        setChronoBackground(background);
+    };
+
+    const updateChronoTextColor = (textColor) => {
+        setChronoTextColor(textColor);
+    };
+
+    const openModal = (type) => {
+        setModalVisible(true);
+        setButtonActive(type);
+        setModalType(type);
+        updateChronoBackground("#FFFFFF");
+        updateChronoTextColor("#000000");
+    };
+
+    const closeModal = () => {
+        setModalVisible(false);
+        setButtonActive("");
+        setModalType("");
+        updateChronoBackground("");
+        updateChronoTextColor("");
+    };
+
+    const renderModal = () => {
+        switch (modalType) {
+            case "Clock":
+                return <ModalClock closeModal={closeModal}/>;
+            case "Dollar":
+                return <ModalDollar closeModal={closeModal}/>;
+            case "Hand":
+                return <ModalHand closeModal={closeModal}/>;
+            case "Notepad":
+                return <ModalNotepad closeModal={closeModal}/>;
+            default:
+                return null;
+        }
+    };
+    const choiceButtonClick = async (choice) => {
+        try {
+            const response = await fetch('http://localhost:5058/createInput', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    userId: localStorage.getItem('userId'),
+                    choice: choice,
+                    questionId: currentQuestionId,
+                }),
+            });
+            if (!response.ok) {
+                throw new Error('Failed to save choice');
+            }
+            const data = await response.json();
+            console.log('Success:', data);
+            if (choice === 'Le client a demandé le prix') {
+                handleHabitualClick();
+            } else {
+                onNext();
+            }
+        } catch (error) {
+            console.error('Error:', error);
+        }
+    };
+    return (
+        <div className={`flex justify-items-center mr-24 z-10 ${modalVisible ? 'fixed top-0 left-0 w-full h-full bg-black/80 flex items-center justify-center pr-24' : ''}`}>
+            <div className={`flex justify-center mx-16 z-50 ${modalVisible ? 'pr-2' : ''}`}>
+                <PanicButton openModal={openModal} buttonActive={buttonActive}/>
+            </div>
+            <div className='flex justify-items-center'>
+                <div className={`bg-gray-400/30 rounded-3xl ${modalVisible ? '' : 'border-4'} border-gray-500/25 backdrop-blur-sm pt-14`}>
+                    <div className='mb-2.5 mx-10'>
+                        <div className='flex flex-grow mr-96'>
+                            <h1 className='text-4xl ml-2 text-white font-bold'>PARTIE 10 : PRÉSENTATION DE VOTRE OFFRE :</h1>
+                            <Chronometre chronoBackground={chronoBackground} chronoTextColor={chronoTextColor} formatTime={formatTime} time={time}/>
+                        </div>
+                        <div className='flex flex-col bg-gray-800/50 py-24  mt-16 rounded-2xl items-center'>
+                            <div className='text-white'>
+                                <div className='mx-4'>
+                                    <div className='flex flex-grow justify-center items-center space-x-28'>
+                                        <button onClick={() => choiceButtonClick('Le client n\'a pas demander le prix')}
+                                                className='flex bg-gray-400/80 hover:bg-gray-500 text-white py-4 px-7 rounded-3xl font-bold text-lg'>
+                                            <div className='flex flex-grow'>
+                                                <div className='flex flex-col'>
+                                                    <div>LE CLIENT NE VOUS DEMANDE PAS LE PRIX</div>
+                                                    <div className='flex justify-center my-20'>
+                                                        <img className='h-10 w-10 my-5 mr-3 ml-4' src={require('../img/play.png')}/>
+                                                    </div>
+                                                </div>
+                                                <div className='flex justify-center items-center'>
+                                                    <img className='h-5 w-5 ml-3 mt-0.5' src={require('../img/play.png')}/>
+                                                </div>
+                                            </div>
+                                        </button>
+                                        <button onClick={() => choiceButtonClick('Le client a demandé le prix')}
+                                                className='flex bg-gray-400/80 hover:bg-gray-500 text-white py-4 px-12 rounded-3xl font-bold text-lg'>
+                                            <div className='flex flex-grow'>
+                                                <div className='flex flex-col'>
+                                                    <div>LE CLIENT VOUS DEMANDE LE PRIX</div>
+                                                    <div className='flex justify-center my-20'>
+                                                        <img className='h-10 w-10 my-5 mr-3 ml-4'
+                                                             src={require('../img/play.png')}/>
+                                                    </div>
+                                                </div>
+                                                <div className='flex justify-center items-center'>
+                                                    <img className='h-5 w-5 ml-3 mt-0.5'
+                                                         src={require('../img/play.png')}/>
+                                                </div>
+                                            </div>
+                                        </button>
                                     </div>
+                                    {modalVisible && renderModal()}
+                                </div>
+                            </div>
+                        </div>
+                        <div className='mt-10 mb-8 grid grid-cols-6 gap-2'>
+                            <Intonation image={reflectEmoji} text={"ça m'instéresse vraiment"}/>
+                            <div className='flex col-end-11 space-x-3 col-span-3'>
+                                <div className='flex mt-6 justify-end'>
+                                    <button onClick={onPrev}
+                                            className='flex bg-gray-400/80 hover:bg-gray-500 text-white font-bold py-2.5 px-3 rounded-full'>
+                                        <img className='h-5 w-5 my-4 mr-4 ml-3 rotate-180'
+                                             src={require('../img/play.png')}
+                                             alt="logo"/>
+                                    </button>
+                                </div>
+                                <div>
+                                    <div
+                                        className='flex bg-gray-700/80 text-white font-bold py-2 px-4 rounded-full'>
+                                    <img className='h-10 w-10 my-5 mr-3 ml-4' src={require('../img/play.png')}
+                                             alt="logo"/>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    )
+}
+
+function QuizOnboardingStep17({onNext, onPrev, time, formatTime}) {
+    const [modalVisible, setModalVisible] = useState(false);
+    const [buttonActive, setButtonActive] = useState("");
+    const [modalType, setModalType] = useState("");
+    const [chronoBackground, setChronoBackground] = useState("");
+    const [chronoTextColor, setChronoTextColor] = useState("");
+
+    const updateChronoBackground = (background) => {
+        setChronoBackground(background);
+    };
+
+    const updateChronoTextColor = (textColor) => {
+        setChronoTextColor(textColor);
+    };
+
+    const openModal = (type) => {
+        setModalVisible(true);
+        setButtonActive(type);
+        setModalType(type);
+        updateChronoBackground("#FFFFFF");
+        updateChronoTextColor("#000000");
+    };
+
+    const closeModal = () => {
+        setModalVisible(false);
+        setButtonActive("");
+        setModalType("");
+        updateChronoBackground("");
+        updateChronoTextColor("");
+    };
+
+    const renderModal = () => {
+        switch (modalType) {
+            case "Clock":
+                return <ModalClock closeModal={closeModal}/>;
+            case "Dollar":
+                return <ModalDollar closeModal={closeModal}/>;
+            case "Hand":
+                return <ModalHand closeModal={closeModal}/>;
+            case "Notepad":
+                return <ModalNotepad closeModal={closeModal}/>;
+            default:
+                return null;
+        }
+    };
+    return (
+        <div className={`flex justify-items-center mr-24 z-10 ${modalVisible ? 'fixed top-0 left-0 w-full h-full bg-black/80 flex items-center justify-center pr-24' : ''}`}>
+            <div className='flex justify-center mx-16 z-50'>
+                <PanicButton openModal={openModal} buttonActive={buttonActive}/>
+            </div>
+            <div className='flex justify-items-center'>
+                <div className='bg-gray-400/30 rounded-3xl border-4 border-gray-500/25 backdrop-blur-sm pt-14'>
+                    <div className='mb-2.5 mx-10'>
+                        <div className='flex flex-grow'>
+                            <h1 className='text-4xl ml-2 text-white font-bold'>PARTIE 2 : PRENDRE LE CONTRÔLE DE L’APPEL (2 / 2)</h1>
+                            <Chronometre chronoBackground={chronoBackground} chronoTextColor={chronoTextColor} formatTime={formatTime} time={time}/>
+                        </div>
+                        <div className='flex flex-col bg-gray-800/50 mt-16 rounded-2xl items-center'>
+                            <div className='text-white ml-1.5'>
+                                <div className='ml-12 mr-24 max-w-6xl space-y-14 mt-14 mb-24'>
+                                    {modalVisible && renderModal()}
+                                    <h1 className='text-2xl font-bold'>Parfait ! Est-ce que vous souhaitez que je
+                                        donne l’investissement pour rejoindre l’aventure ?</h1>
+                                    <h1 className='text-2xl font-bold '>Alors pour rejoindre nos clients nous avons 2 accompagnement, premier qui est un accompagnement
+                                        de 3 mois via Zoom ou l’on se fixe connecte , que nous proposons à 5000€</h1>
+                                    <h1 className='text-2xl font-bold '>Mais au vu de ce que vous venez de me dire, je pense que ce qui vous correspondrez mieux, c’est
+                                        plûtot notre 2ème type d’accompagnement, qui est notre programme de formation en ligne, qui
+                                        délivre la même promesse que le coaching, sauf qu’au lieu d’échanger ensemble vous avez tous les
+                                        éléments enregistré sur une plateforme, avec des vidéos que vous pouvez suivre à votre rythme, et
+                                        revoir autant de fois que vous voulez,  et pour rejoindre le programme l’investissement est de 1000€.</h1>
+                                </div>
+                            </div>
+                        </div>
+                        <div className='mt-10 mb-8 grid grid-cols-6 gap-2'>
+                            <Intonation image={secretEmoji} text={"secret"}/>
+                            <div className='flex col-end-11 space-x-3 col-span-3'>
+                                <div className='flex mt-6 justify-end'>
+                                    <button onClick={onPrev}
+                                            className='flex bg-gray-400/80 hover:bg-gray-500 text-white font-bold py-2.5 px-3 rounded-full'>
+                                        <img className='h-5 w-5 my-4 mr-4 ml-3 rotate-180'
+                                             src={require('../img/play.png')}
+                                             alt="logo"/>
+                                    </button>
+                                </div>
+                                <div>
+                                    <button onClick={onNext}
+                                            className='flex bg-gray-400/80 hover:bg-gray-500 text-white font-bold py-2 px-4 rounded-full'>
+                                        <img className='h-10 w-10 my-5 mr-3 ml-4' src={require('../img/play.png')}
+                                             alt="logo"/>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    )
+}
+
+function QuizOnboardingStep18({onNext, onPrev, handleHabitualClickReturn, time, formatTime}) {
+    const [modalVisible, setModalVisible] = useState(false);
+    const [buttonActive, setButtonActive] = useState("");
+    const [modalType, setModalType] = useState("");
+    const [chronoBackground, setChronoBackground] = useState("");
+    const [chronoTextColor, setChronoTextColor] = useState("");
+
+    const updateChronoBackground = (background) => {
+        setChronoBackground(background);
+    };
+
+    const updateChronoTextColor = (textColor) => {
+        setChronoTextColor(textColor);
+    };
+
+    const openModal = (type) => {
+        setModalVisible(true);
+        setButtonActive(type);
+        setModalType(type);
+        updateChronoBackground("#FFFFFF");
+        updateChronoTextColor("#000000");
+    };
+
+    const closeModal = () => {
+        setModalVisible(false);
+        setButtonActive("");
+        setModalType("");
+        updateChronoBackground("");
+        updateChronoTextColor("");
+    };
+
+    const renderModal = () => {
+        switch (modalType) {
+            case "Clock":
+                return <ModalClock closeModal={closeModal}/>;
+            case "Dollar":
+                return <ModalDollar closeModal={closeModal}/>;
+            case "Hand":
+                return <ModalHand closeModal={closeModal}/>;
+            case "Notepad":
+                return <ModalNotepad closeModal={closeModal}/>;
+            default:
+                return null;
+        }
+    };
+    return (
+        <div
+            className={`flex justify-items-center mr-24 z-10 ${modalVisible ? 'fixed top-0 left-0 w-full h-full bg-black/80 flex items-center justify-center pr-24' : ''}`}>
+            <div className='flex justify-center mx-16 z-50'>
+                <PanicButton openModal={openModal} buttonActive={buttonActive}/>
+            </div>
+            <div className='flex justify-items-center'>
+                <div className='bg-gray-400/30 rounded-3xl border-4 border-gray-500/25 backdrop-blur-sm pt-14'>
+                    <div className='mb-2.5 mx-10'>
+                        <div className='flex flex-grow'>
+                            <h1 className='text-4xl ml-2 text-white font-bold'>PARTIE 2 : PRENDRE LE CONTRÔLE DE L’APPEL (2 / 2)</h1>
+                            <Chronometre chronoBackground={chronoBackground} chronoTextColor={chronoTextColor} formatTime={formatTime} time={time}/>
+                        </div>
+                        <div className='flex flex-col bg-gray-800/50 mt-16 rounded-2xl items-center'>
+                            <div className='text-white ml-1.5'>
+                                <div className='ml-12 mr-24 max-w-6xl space-y-14 mt-14 mb-24'>
+                                    {modalVisible && renderModal()}
+                                    <h1 className='text-2xl font-bold'>Alors pour rejoindre nos clients nous avons 2 accompagnement, premier qui est un
+                                        accompagnement de 3 mois via Zoom ou l’on se fixe connecte , que nous proposons à
+                                        5000€</h1>
+                                    <h1 className='text-2xl font-bold '>Mais au vu de ce que vous venez de me dire, je pense que ce qui vous correspondrez mieux,
+                                        c’est plûtot notre 2ème type d’accompagnement, qui est notre programme de formation en
+                                        ligne, qui délivre la même promesse que le coaching, sauf qu’au lieu d’échanger ensemble
+                                        vous avez tous les éléments enregistré sur une plateforme, avec des vidéos que vous
+                                        pouvez suivre à votre rythme, et revoir autant de fois que vous voulez,  et pour rejoindre le
+                                        programme l’investissement est de 1000€.</h1>
+                                </div>
+                            </div>
+                        </div>
+                        <div className='mt-10 mb-8 grid grid-cols-6 gap-2'>
+                            <Intonation image={secretEmoji} text={"secret"}/>
+                            <div className='flex col-end-11 space-x-3 col-span-3'>
+                                <div className='flex mt-6 justify-end'>
+                                    <button onClick={handleHabitualClickReturn}
+                                            className='flex bg-gray-400/80 hover:bg-gray-500 text-white font-bold py-2.5 px-3 rounded-full'>
+                                        <img className='h-5 w-5 my-4 mr-4 ml-3 rotate-180'
+                                             src={require('../img/play.png')}
+                                             alt="logo"/>
+                                    </button>
+                                </div>
+                                <div>
+                                    <button onClick={onNext}
+                                            className='flex bg-gray-400/80 hover:bg-gray-500 text-white font-bold py-2 px-4 rounded-full'>
+                                        <img className='h-10 w-10 my-5 mr-3 ml-4' src={require('../img/play.png')}
+                                             alt="logo"/>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    )
+}
+
+function QuizOnboardingStep19({handleHabitualClick, handleClickReturn, time, formatTime, onNext, onPrev}) {
+    const [modalVisible, setModalVisible] = useState(false);
+    const [buttonActive, setButtonActive] = useState("");
+    const [modalType, setModalType] = useState("");
+    const [chronoBackground, setChronoBackground] = useState("");
+    const [chronoTextColor, setChronoTextColor] = useState("");
+    const [currentQuestionId, setCurrentQuestionId] = useState(9);
+
+    const updateChronoBackground = (background) => {
+        setChronoBackground(background);
+    };
+
+    const updateChronoTextColor = (textColor) => {
+        setChronoTextColor(textColor);
+    };
+
+    const openModal = (type) => {
+        setModalVisible(true);
+        setButtonActive(type);
+        setModalType(type);
+        updateChronoBackground("#FFFFFF");
+        updateChronoTextColor("#000000");
+    };
+
+    const closeModal = () => {
+        setModalVisible(false);
+        setButtonActive("");
+        setModalType("");
+        updateChronoBackground("");
+        updateChronoTextColor("");
+    };
+
+    const renderModal = () => {
+        switch (modalType) {
+            case "Clock":
+                return <ModalClock closeModal={closeModal}/>;
+            case "Dollar":
+                return <ModalDollar closeModal={closeModal}/>;
+            case "Hand":
+                return <ModalHand closeModal={closeModal}/>;
+            case "Notepad":
+                return <ModalNotepad closeModal={closeModal}/>;
+            default:
+                return null;
+        }
+    };
+    const choiceButtonClick = async (choice) => {
+        try {
+            const response = await fetch('http://localhost:5058/createInput', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    userId: localStorage.getItem('userId'),
+                    choice: choice,
+                    questionId: currentQuestionId,
+                }),
+            });
+            if (!response.ok) {
+                throw new Error('Failed to save choice');
+            }
+            const data = await response.json();
+            console.log('Success:', data);
+            if (choice === 'Le client a demandé le prix') {
+                handleHabitualClick();
+            } else {
+                onNext();
+            }
+        } catch (error) {
+            console.error('Error:', error);
+        }
+    };
+    return (
+        <div
+            className={`flex justify-items-center mr-24 z-10 ${modalVisible ? 'fixed top-0 left-0 w-full h-full bg-black/80 flex items-center justify-center pr-24' : ''}`}>
+            <div className='flex justify-center mx-16 z-50'>
+                <PanicButton openModal={openModal} buttonActive={buttonActive}/>
+            </div>
+            <div className='flex justify-items-center'>
+                <div className='bg-gray-400/30 rounded-3xl border-4 border-gray-500/25 backdrop-blur-sm pt-14'>
+                    <div className='mb-2.5 mx-10'>
+                        <div className='flex flex-grow'>
+                            <h1 className='text-4xl ml-2 text-white font-bold'>PARTIE 2 : PRENDRE LE CONTRÔLE DE L’APPEL (2 / 2)</h1>
+                            <Chronometre chronoBackground={chronoBackground} chronoTextColor={chronoTextColor} formatTime={formatTime} time={time}/>
+                        </div>
+                        <div className='flex flex-col bg-gray-800/50 mt-16 rounded-2xl items-center'>
+                            <div className='text-white ml-1.5'>
+                                <div className='ml-12 mr-24 max-w-6xl space-y-14 mt-14 mb-24'>
+                                    {modalVisible && renderModal()}
+                                    <div className='flex flex-grow justify-center items-center space-x-28'>
+                                        <button onClick={() => choiceButtonClick('Le client n\'a pas demander le prix')}
+                                                className='flex bg-gray-400/80 hover:bg-gray-500 text-white py-4 px-7 rounded-3xl font-bold text-lg'>
+                                            <div className='flex flex-grow'>
+                                                <div className='flex flex-col'>
+                                                    <div>LE CLIENT NE VOUS DEMANDE PAS LE PRIX</div>
+                                                    <div className='flex justify-center my-20'>
+                                                        <img className='h-10 w-10 my-5 mr-3 ml-4'
+                                                             src={require('../img/play.png')}/>
+                                                    </div>
+                                                </div>
+                                                <div className='flex justify-center items-center'>
+                                                    <img className='h-5 w-5 ml-3 mt-0.5'
+                                                         src={require('../img/play.png')}/>
+                                                </div>
+                                            </div>
+                                        </button>
+                                        <button onClick={() => choiceButtonClick('Le client a demandé le prix')}
+                                                className='flex bg-gray-400/80 hover:bg-gray-500 text-white py-4 px-12 rounded-3xl font-bold text-lg'>
+                                            <div className='flex flex-grow'>
+                                                <div className='flex flex-col'>
+                                                    <div>LE CLIENT VOUS DEMANDE LE PRIX</div>
+                                                    <div className='flex justify-center my-20'>
+                                                        <img className='h-10 w-10 my-5 mr-3 ml-4'
+                                                             src={require('../img/play.png')}/>
+                                                    </div>
+                                                </div>
+                                                <div className='flex justify-center items-center'>
+                                                    <img className='h-5 w-5 ml-3 mt-0.5'
+                                                         src={require('../img/play.png')}/>
+                                                </div>
+                                            </div>
+                                        </button>
+                                        <button onClick={() => choiceButtonClick('Le client a demandé le prix')}
+                                                className='flex bg-gray-400/80 hover:bg-gray-500 text-white py-4 px-12 rounded-3xl font-bold text-lg'>
+                                            <div className='flex flex-grow'>
+                                                <div className='flex flex-col'>
+                                                    <div>LE CLIENT VOUS DEMANDE LE PRIX</div>
+                                                    <div className='flex justify-center my-20'>
+                                                        <img className='h-10 w-10 my-5 mr-3 ml-4'
+                                                             src={require('../img/play.png')}/>
+                                                    </div>
+                                                </div>
+                                                <div className='flex justify-center items-center'>
+                                                    <img className='h-5 w-5 ml-3 mt-0.5'
+                                                         src={require('../img/play.png')}/>
+                                                </div>
+                                            </div>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div className='mt-10 mb-8 grid grid-cols-6 gap-2'>
+                            <Intonation image={secretEmoji} text={"secret"}/>
+                            <div className='flex col-end-11 space-x-3 col-span-3'>
+                                <div className='flex mt-6 justify-end'>
+                                    <button onClick={handleClickReturn}
+                                            className='flex bg-gray-400/80 hover:bg-gray-500 text-white font-bold py-2.5 px-3 rounded-full'>
+                                        <img className='h-5 w-5 my-4 mr-4 ml-3 rotate-180'
+                                             src={require('../img/play.png')}
+                                             alt="logo"/>
+                                    </button>
+                                </div>
+                                <div>
+                                    <button onClick={onNext}
+                                            className='flex bg-gray-400/80 hover:bg-gray-500 text-white font-bold py-2 px-4 rounded-full'>
+                                        <img className='h-10 w-10 my-5 mr-3 ml-4' src={require('../img/play.png')}
+                                             alt="logo"/>
+                                    </button>
                                 </div>
                             </div>
                         </div>
@@ -1809,6 +2331,10 @@ function QuizOnboarding() {
             {step === 13 && <QuizOnboardingStep13 onNext={handleNext} onPrev={handlePrev} time={time} formatTime={formatTime}/>}
             {step === 14 && <QuizOnboardingStep14 onNext={handleNext} onPrev={handlePrev} time={time} formatTime={formatTime}/>}
             {step === 15 && <QuizOnboardingStep15 onNext={handleNext} onPrev={handlePrev} time={time} formatTime={formatTime}/>}
+            {step === 16 && <QuizOnboardingStep16 onNext={handleNext} onPrev={handlePrev} handleHabitualClick={handleHabitualClick} time={time} formatTime={formatTime}/>}
+            {step === 17 && <QuizOnboardingStep17 onNext={handleHabitualClick} onPrev={handlePrev} time={time} formatTime={formatTime}/>}
+            {step === 18 && <QuizOnboardingStep18 onNext={handleNext} onPrev={handlePrev} handleHabitualClickReturn={handleHabitualClickReturn} time={time} formatTime={formatTime}/>}
+            {step === 19 && <QuizOnboardingStep19 onNext={handleNext} onPrev={handleClickReturn} handleClickReturn={handleClickReturn} time={time} formatTime={formatTime}/>}
         </div>
     )
 }
