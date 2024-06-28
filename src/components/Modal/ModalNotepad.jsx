@@ -45,7 +45,7 @@ function ModalNotepad({ closeModal }) {
                             <div className='mt-9 bg-gray-800/30 p-6 rounded-2xl'>
                                 <h1 className='flex flex-grow text-2xl mb-2 font-bold'><img className='mr-2' src={require('../img/cocheGood.png')}
                                                                              alt="logo"/>Réponses:</h1>
-                                <ul>
+                                <ul style={{ maxHeight: '335px', overflowY: 'auto' }}>
                                     {inputs
                                         .sort((a, b) => a.id - b.id)
                                         .map((input, index ) => (
